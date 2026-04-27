@@ -1,0 +1,21 @@
+[
+  {
+    "actual_ok": false,
+    "errors": [
+      "direct apply CNOT on q0:SurfaceD5 is not supported",
+      "direct apply CNOT on q1:SurfaceD5 is not supported"
+    ],
+    "expected_ok": false,
+    "name": "invalid_direct_cnot",
+    "warnings": []
+  },
+  {
+    "actual_ok": false,
+    "errors": [
+      "resource res_t_shared consumed twice"
+    ],
+    "expected_ok": false,
+    "name": "invalid_duplicate_resource",
+    "warnings": []
+  }
+]

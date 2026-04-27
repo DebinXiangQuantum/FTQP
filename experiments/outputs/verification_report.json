@@ -1,0 +1,116 @@
+[
+  {
+    "checked": [
+      "all_effect_fields_nonnegative",
+      "direct_gate_steps_have_capability_witnesses",
+      "linear_resources_produced_and_consumed_once",
+      "reported_effect_is_conservative_over_flattened_steps",
+      "err_bound_is_conservative",
+      "accept_lower_bound_is_conservative",
+      "cycles_bound_is_conservative",
+      "factory_count_is_conservative",
+      "switch_count_is_conservative",
+      "two_qubit_count_is_conservative"
+    ],
+    "failures": [],
+    "name": "case_study_best",
+    "ok": true,
+    "smt_file": "/Users/xiangdebin/Documents/code/quantumcomputing/FTQP/experiments/outputs/smt/case_study_best.smt2",
+    "solver": "z3"
+  },
+  {
+    "checked": [
+      "all_effect_fields_nonnegative",
+      "direct_gate_steps_have_capability_witnesses",
+      "linear_resources_produced_and_consumed_once",
+      "reported_effect_is_conservative_over_flattened_steps",
+      "err_bound_is_conservative",
+      "accept_lower_bound_is_conservative",
+      "cycles_bound_is_conservative",
+      "factory_count_is_conservative",
+      "switch_count_is_conservative",
+      "two_qubit_count_is_conservative"
+    ],
+    "failures": [],
+    "name": "case_study_hybrid",
+    "ok": true,
+    "smt_file": "/Users/xiangdebin/Documents/code/quantumcomputing/FTQP/experiments/outputs/smt/case_study_hybrid.smt2",
+    "solver": "z3"
+  },
+  {
+    "checked": [
+      "all_effect_fields_nonnegative",
+      "direct_gate_steps_have_capability_witnesses",
+      "linear_resources_produced_and_consumed_once",
+      "reported_effect_is_conservative_over_flattened_steps",
+      "err_bound_is_conservative",
+      "accept_lower_bound_is_conservative",
+      "cycles_bound_is_conservative",
+      "factory_count_is_conservative",
+      "switch_count_is_conservative",
+      "two_qubit_count_is_conservative"
+    ],
+    "failures": [],
+    "name": "case_study_magic_only",
+    "ok": true,
+    "smt_file": "/Users/xiangdebin/Documents/code/quantumcomputing/FTQP/experiments/outputs/smt/case_study_magic_only.smt2",
+    "solver": "z3"
+  },
+  {
+    "checked": [
+      "all_effect_fields_nonnegative",
+      "direct_gate_steps_have_capability_witnesses",
+      "linear_resources_produced_and_consumed_once",
+      "reported_effect_is_conservative_over_flattened_steps",
+      "err_bound_is_conservative",
+      "accept_lower_bound_is_conservative",
+      "cycles_bound_is_conservative",
+      "factory_count_is_conservative",
+      "switch_count_is_conservative",
+      "two_qubit_count_is_conservative"
+    ],
+    "failures": [],
+    "name": "case_study_random_seed17",
+    "ok": true,
+    "smt_file": "/Users/xiangdebin/Documents/code/quantumcomputing/FTQP/experiments/outputs/smt/case_study_random_seed17.smt2",
+    "solver": "z3"
+  },
+  {
+    "checked": [
+      "all_effect_fields_nonnegative",
+      "direct_gate_steps_have_capability_witnesses",
+      "linear_resources_produced_and_consumed_once",
+      "reported_effect_is_conservative_over_flattened_steps",
+      "err_bound_is_conservative",
+      "accept_lower_bound_is_conservative",
+      "cycles_bound_is_conservative",
+      "factory_count_is_conservative",
+      "switch_count_is_conservative",
+      "two_qubit_count_is_conservative"
+    ],
+    "failures": [],
+    "name": "case_study_random_seed7",
+    "ok": true,
+    "smt_file": "/Users/xiangdebin/Documents/code/quantumcomputing/FTQP/experiments/outputs/smt/case_study_random_seed7.smt2",
+    "solver": "z3"
+  },
+  {
+    "checked": [
+      "all_effect_fields_nonnegative",
+      "direct_gate_steps_have_capability_witnesses",
+      "linear_resources_produced_and_consumed_once",
+      "reported_effect_is_conservative_over_flattened_steps",
+      "err_bound_is_conservative",
+      "accept_lower_bound_is_conservative",
+      "cycles_bound_is_conservative",
+      "factory_count_is_conservative",
+      "switch_count_is_conservative",
+      "two_qubit_count_is_conservative"
+    ],
+    "failures": [],
+    "name": "case_study_switch_only",
+    "ok": true,
+    "smt_file": "/Users/xiangdebin/Documents/code/quantumcomputing/FTQP/experiments/outputs/smt/case_study_switch_only.smt2",
+    "solver": "z3"
+  }
+]
