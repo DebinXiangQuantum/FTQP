@@ -10,6 +10,7 @@ if str(ROOT) not in sys.path:
 
 from cipr.checker import Checker
 from cipr.ir import Effect, FTStep, LogicalOp, QType
+from cipr.layout import LayoutState
 from cipr.planner import Compiler, CompileResult
 from cipr.rules import RuleLibrary
 
@@ -51,6 +52,8 @@ def summarize(result: CompileResult, valid: bool, warnings: list[str], strict_va
     effect = result.effect
     return {
         "strategy": result.strategy,
+        "backend": result.backend.name,
+        "topology": result.backend.topology,
         "valid": valid,
         "strict_without_assumptions": strict_valid,
         "err_bound": effect.err,
@@ -65,6 +68,8 @@ def summarize(result: CompileResult, valid: bool, warnings: list[str], strict_va
         "two_qubit_gates": effect.two_qubit_gates,
         "three_qubit_gates": effect.three_qubit_gates,
         "decoder_latency": effect.decoder_latency,
+        "physical_qubits_used": result.final_layout.used_qubits,
+        "physical_qubits_free": result.final_layout.free_qubits,
         "cert_count": len(set(effect.certs)),
         "assumption_count": len(set(effect.assumptions)),
         "warnings": warnings,
@@ -107,14 +112,12 @@ def print_table(rows: list[dict[str, object]]) -> None:
 
 
 def run_negative_tests(checker: Checker) -> list[dict[str, object]]:
+    backend = checker.backend
+    empty_layout = LayoutState.empty(backend)
     direct_bad = CompileResult(
         strategy="invalid_direct_cnot",
         source_program=[LogicalOp.apply("CNOT", "q0", "q1")],
-        final_env={
-            "q0": QType("SurfaceD5", 5),
-            "q1": QType("SurfaceD5", 5),
-        },
-        effect=Effect(),
+        backend=backend,
         steps=[
             FTStep(
                 op="apply",
@@ -124,19 +127,21 @@ def run_negative_tests(checker: Checker) -> list[dict[str, object]]:
                 output_codes={"q0": "SurfaceD5", "q1": "SurfaceD5"},
                 effect=Effect(),
                 cert_level="Checked",
-                details={"gate": "CNOT"},
+                details={"gate": "CNOT", "reason": "direct_capability"},
             )
         ],
+        final_env={
+            "q0": QType("SurfaceD5", 5),
+            "q1": QType("SurfaceD5", 5),
+        },
+        final_layout=empty_layout,
+        effect=Effect(),
     )
 
     duplicate_resource = CompileResult(
         strategy="invalid_duplicate_resource",
         source_program=[LogicalOp.apply("T", "q0"), LogicalOp.apply("T", "q1")],
-        final_env={
-            "q0": QType("SurfaceD5", 5),
-            "q1": QType("SurfaceD5", 5),
-        },
-        effect=Effect(),
+        backend=backend,
         steps=[
             FTStep(
                 op="prepare_resource",
@@ -169,9 +174,36 @@ def run_negative_tests(checker: Checker) -> list[dict[str, object]]:
                 details={"gate": "T", "consumes": "res_t_shared"},
             ),
         ],
+        final_env={
+            "q0": QType("SurfaceD5", 5),
+            "q1": QType("SurfaceD5", 5),
+        },
+        final_layout=empty_layout,
+        effect=Effect(),
     )
 
-    cases = [direct_bad, duplicate_resource]
+    qldpc_bad = CompileResult(
+        strategy="invalid_qldpc_switch_on_grid",
+        source_program=[LogicalOp.barrier("force_qldpc_switch")],
+        backend=backend,
+        steps=[
+            FTStep(
+                op="switch",
+                rule="Switch_SurfaceD5_to_QLDPC12",
+                qubits=("q0",),
+                input_codes={"q0": "SurfaceD5"},
+                output_codes={"q0": "QLDPC12"},
+                effect=Effect(switch_count=1),
+                cert_level="Assumed",
+                details={"from": "SurfaceD5", "to": "QLDPC12"},
+            ),
+        ],
+        final_env={"q0": QType("QLDPC12", 4)},
+        final_layout=empty_layout,
+        effect=Effect(switch_count=1),
+    )
+
+    cases = [direct_bad, duplicate_resource, qldpc_bad]
     results: list[dict[str, object]] = []
     for case in cases:
         report = checker.validate(case, allow_assumed=True)
