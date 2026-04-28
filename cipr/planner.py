@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from .ir import Effect, FTStep, LogicalOp, QType
+from .layout import BackendSpec, LayoutState
 from .rules import RuleLibrary, RuleProfile
 
 
@@ -14,6 +15,7 @@ class PlanCandidate:
     steps: list[FTStep]
     effect: Effect
     final_env: dict[str, QType]
+    final_layout: LayoutState
     kind: str
 
 
@@ -21,8 +23,10 @@ class PlanCandidate:
 class CompileResult:
     strategy: str
     source_program: list[LogicalOp]
+    backend: BackendSpec
     steps: list[FTStep]
     final_env: dict[str, QType]
+    final_layout: LayoutState
     effect: Effect
     diagnostics: list[str] = field(default_factory=list)
 
@@ -30,7 +34,9 @@ class CompileResult:
         return {
             "strategy": self.strategy,
             "source_program": [op.to_json() for op in self.source_program],
+            "backend": self.backend.to_json(),
             "final_env": {name: qtype.to_json() for name, qtype in self.final_env.items()},
+            "final_layout": self.final_layout.to_json(),
             "effect": self.effect.to_json(),
             "diagnostics": self.diagnostics,
             "steps": [step.to_json() for step in self.steps],
@@ -38,9 +44,15 @@ class CompileResult:
 
 
 class Compiler:
-    def __init__(self, rules: RuleLibrary | None = None, base_code: str = "SurfaceD5") -> None:
+    def __init__(
+        self,
+        rules: RuleLibrary | None = None,
+        base_code: str = "SurfaceD5",
+        backend: BackendSpec | str | None = None,
+    ) -> None:
         self.rules = rules or RuleLibrary()
         self.base_code = base_code
+        self.backend = LayoutState.empty(backend).backend
         self.resource_counter = 0
         self.rng = random.Random(0)
 
@@ -55,23 +67,26 @@ class Compiler:
         self.rng = random.Random(seed)
         env: dict[str, QType] = {}
         bits: set[str] = set()
-        steps, effect, final_env = self._compile_ops(
+        layout = LayoutState.empty(self.backend)
+        steps, effect, final_env, final_layout = self._compile_ops(
             program,
             env,
+            layout,
             bits,
             strategy=strategy,
             allow_assumed=allow_assumed,
         )
-        return CompileResult(strategy, program, steps, final_env, effect)
+        return CompileResult(strategy, program, self.backend, steps, final_env, final_layout, effect)
 
     def _compile_ops(
         self,
         ops: list[LogicalOp] | tuple[LogicalOp, ...],
         env: dict[str, QType],
+        layout: LayoutState,
         bits: set[str],
         strategy: str,
         allow_assumed: bool,
-    ) -> tuple[list[FTStep], Effect, dict[str, QType]]:
+    ) -> tuple[list[FTStep], Effect, dict[str, QType], LayoutState]:
         out_steps: list[FTStep] = []
         total = Effect()
         i = 0
@@ -83,9 +98,10 @@ class Compiler:
                 while j < len(ops) and ops[j].kind == "gate":
                     block.append(ops[j])
                     j += 1
-                block_steps, block_effect, env = self._compile_gate_block(
+                block_steps, block_effect, env, layout = self._compile_gate_block(
                     block,
                     env,
+                    layout,
                     strategy=strategy,
                     allow_assumed=allow_assumed,
                 )
@@ -94,28 +110,29 @@ class Compiler:
                 i = j
                 continue
 
-            step_list, effect, env = self._compile_one(op, env, bits, strategy, allow_assumed)
+            step_list, effect, env, layout = self._compile_one(op, env, layout, bits, strategy, allow_assumed)
             out_steps.extend(step_list)
             total = total.seq(effect)
             i += 1
-        return out_steps, total, env
+        return out_steps, total, env, layout
 
     def _compile_one(
         self,
         op: LogicalOp,
         env: dict[str, QType],
+        layout: LayoutState,
         bits: set[str],
         strategy: str,
         allow_assumed: bool,
-    ) -> tuple[list[FTStep], Effect, dict[str, QType]]:
+    ) -> tuple[list[FTStep], Effect, dict[str, QType], LayoutState]:
         if op.kind == "prepare":
-            return self._compile_prepare(op, env)
+            return self._compile_prepare(op, env, layout)
         if op.kind == "ec":
-            return self._compile_ec(op, env)
+            return self._compile_ec(op, env, layout)
         if op.kind == "measure":
-            return self._compile_measure(op, env, bits)
+            return self._compile_measure(op, env, layout, bits)
         if op.kind == "if":
-            return self._compile_if(op, env, bits, strategy, allow_assumed)
+            return self._compile_if(op, env, layout, bits, strategy, allow_assumed)
         if op.kind == "barrier":
             step = FTStep(
                 op="barrier",
@@ -127,18 +144,19 @@ class Compiler:
                 cert_level="Checked",
                 details={"label": op.label},
             )
-            return [step], Effect(), env
+            return [step], Effect(), env, layout
         if op.kind == "gate":
-            return self._compile_gate(op, env, strategy, allow_assumed)
+            return self._compile_gate(op, env, layout, strategy, allow_assumed)
         raise ValueError(f"unsupported logical op kind: {op.kind}")
 
     def _compile_prepare(
-        self, op: LogicalOp, env: dict[str, QType]
-    ) -> tuple[list[FTStep], Effect, dict[str, QType]]:
+        self, op: LogicalOp, env: dict[str, QType], layout: LayoutState
+    ) -> tuple[list[FTStep], Effect, dict[str, QType], LayoutState]:
         q = op.qubits[0]
         if q in env:
             raise ValueError(f"qubit {q} is already prepared")
         code = self.base_code
+        layout, layout_event = layout.prepare(q, self.rules.codes[code], self.rules.prepare.name)
         qtype = QType(code=code, distance=self.rules.codes[code].distance)
         new_env = dict(env)
         new_env[q] = qtype
@@ -151,13 +169,17 @@ class Compiler:
             output_codes={q: code},
             effect=effect,
             cert_level=self.rules.prepare.cert_level,
-            details={"state": op.state, "sources": self.rules.prepare.sources_json()},
+            details={
+                "state": op.state,
+                "sources": self.rules.prepare.sources_json(),
+                "layout_event": layout_event,
+            },
         )
-        return [step], effect, new_env
+        return [step], effect, new_env, layout
 
     def _compile_ec(
-        self, op: LogicalOp, env: dict[str, QType]
-    ) -> tuple[list[FTStep], Effect, dict[str, QType]]:
+        self, op: LogicalOp, env: dict[str, QType], layout: LayoutState
+    ) -> tuple[list[FTStep], Effect, dict[str, QType], LayoutState]:
         self._require_qubits(op.qubits, env)
         by_code: dict[str, list[str]] = {}
         for q in op.qubits:
@@ -180,11 +202,11 @@ class Compiler:
             )
             steps.append(step)
             total = total.seq(effect)
-        return steps, total, env
+        return steps, total, env, layout
 
     def _compile_measure(
-        self, op: LogicalOp, env: dict[str, QType], bits: set[str]
-    ) -> tuple[list[FTStep], Effect, dict[str, QType]]:
+        self, op: LogicalOp, env: dict[str, QType], layout: LayoutState, bits: set[str]
+    ) -> tuple[list[FTStep], Effect, dict[str, QType], LayoutState]:
         self._require_qubits(op.qubits, env)
         if len({env[q].code for q in op.qubits}) != 1:
             raise ValueError("logical measurement currently requires all qubits in the same code")
@@ -203,35 +225,40 @@ class Compiler:
             cert_level=profile.cert_level,
             details={"observable": op.observable, "target": op.target, "sources": profile.sources_json()},
         )
-        return [step], effect, env
+        return [step], effect, env, layout
 
     def _compile_if(
         self,
         op: LogicalOp,
         env: dict[str, QType],
+        layout: LayoutState,
         bits: set[str],
         strategy: str,
         allow_assumed: bool,
-    ) -> tuple[list[FTStep], Effect, dict[str, QType]]:
+    ) -> tuple[list[FTStep], Effect, dict[str, QType], LayoutState]:
         if op.target not in bits:
             raise ValueError(f"branch condition {op.target} is not a known classical bit")
 
-        then_steps, then_effect, then_env = self._compile_ops(
+        then_steps, then_effect, then_env, then_layout = self._compile_ops(
             op.then_ops,
             dict(env),
+            layout.copy(),
             set(bits),
             strategy=strategy,
             allow_assumed=allow_assumed,
         )
-        else_steps, else_effect, else_env = self._compile_ops(
+        else_steps, else_effect, else_env, else_layout = self._compile_ops(
             op.else_ops,
             dict(env),
+            layout.copy(),
             set(bits),
             strategy=strategy,
             allow_assumed=allow_assumed,
         )
         if then_env != else_env:
             raise ValueError("if branches must return the same quantum context")
+        if not then_layout.equivalent(else_layout):
+            raise ValueError("if branches must return the same layout context")
         effect = then_effect.branch(else_effect)
         step = FTStep(
             op="if",
@@ -244,24 +271,25 @@ class Compiler:
             details={"condition": op.target},
             children=then_steps + else_steps,
         )
-        return [step], effect, then_env
+        return [step], effect, then_env, then_layout
 
     def _compile_gate_block(
         self,
         block: list[LogicalOp],
         env: dict[str, QType],
+        layout: LayoutState,
         strategy: str,
         allow_assumed: bool,
-    ) -> tuple[list[FTStep], Effect, dict[str, QType]]:
+    ) -> tuple[list[FTStep], Effect, dict[str, QType], LayoutState]:
         acquire_ops = [op for op in block if self._gate_needs_acquisition(op, env)]
         if len(acquire_ops) < 2:
             steps: list[FTStep] = []
             total = Effect()
             for op in block:
-                op_steps, op_effect, env = self._compile_gate(op, env, strategy, allow_assumed)
+                op_steps, op_effect, env, layout = self._compile_gate(op, env, layout, strategy, allow_assumed)
                 steps.extend(op_steps)
                 total = total.seq(op_effect)
-            return steps, total, env
+            return steps, total, env, layout
 
         involved = self._qubits_in_order(block)
         codes = {env[q].code for q in involved}
@@ -273,16 +301,16 @@ class Compiler:
             steps: list[FTStep] = []
             total = Effect()
             for op in block:
-                op_steps, op_effect, env = self._compile_gate(op, env, strategy, allow_assumed)
+                op_steps, op_effect, env, layout = self._compile_gate(op, env, layout, strategy, allow_assumed)
                 steps.extend(op_steps)
                 total = total.seq(op_effect)
-            return steps, total, env
+            return steps, total, env, layout
 
         before_env = dict(env)
         children: list[FTStep] = []
         total = Effect()
 
-        switch_in, switch_in_effect = self._make_switch_step(involved, source_code, target_code)
+        switch_in, switch_in_effect, layout = self._make_switch_step(involved, source_code, target_code, layout)
         children.append(switch_in)
         total = total.seq(switch_in_effect)
         for q in involved:
@@ -293,7 +321,7 @@ class Compiler:
             children.append(step)
             total = total.seq(effect)
 
-        switch_out, switch_out_effect = self._make_switch_step(involved, target_code, source_code)
+        switch_out, switch_out_effect, layout = self._make_switch_step(involved, target_code, source_code, layout)
         children.append(switch_out)
         total = total.seq(switch_out_effect)
         for q in involved:
@@ -315,15 +343,16 @@ class Compiler:
             },
             children=children,
         )
-        return [region_step], total, env
+        return [region_step], total, env, layout
 
     def _compile_gate(
         self,
         op: LogicalOp,
         env: dict[str, QType],
+        layout: LayoutState,
         strategy: str,
         allow_assumed: bool,
-    ) -> tuple[list[FTStep], Effect, dict[str, QType]]:
+    ) -> tuple[list[FTStep], Effect, dict[str, QType], LayoutState]:
         self._require_qubits(op.qubits, env)
         if len({env[q].code for q in op.qubits}) != 1:
             raise ValueError(f"gate {op.gate} currently requires all operands in the same code")
@@ -332,9 +361,9 @@ class Compiler:
 
         if self.rules.supports_gate(code, op.gate):
             step, effect = self._make_direct_gate_step(op, env, reason="direct_capability")
-            return [step], effect, env
+            return [step], effect, env, layout
 
-        candidates = self._gate_candidates(op, env, strategy, allow_assumed)
+        candidates = self._gate_candidates(op, env, layout, strategy, allow_assumed)
         candidate = self._choose_candidate(candidates, strategy)
         return [
             FTStep(
@@ -352,12 +381,13 @@ class Compiler:
                 },
                 children=candidate.steps,
             )
-        ], candidate.effect, candidate.final_env
+        ], candidate.effect, candidate.final_env, candidate.final_layout
 
     def _gate_candidates(
         self,
         op: LogicalOp,
         env: dict[str, QType],
+        layout: LayoutState,
         strategy: str,
         allow_assumed: bool,
     ) -> list[PlanCandidate]:
@@ -373,12 +403,17 @@ class Compiler:
             if not self._switch_allowed(target_code, code, allow_assumed):
                 continue
 
-            switch_in, e1 = self._make_switch_step(list(op.qubits), code, target_code)
+            candidate_layout = layout.copy()
+            switch_in, e1, candidate_layout = self._make_switch_step(
+                list(op.qubits), code, target_code, candidate_layout
+            )
             temp_env = dict(env)
             for q in op.qubits:
                 temp_env[q] = QType(target_code, self.rules.codes[target_code].distance)
             gate_step, e2 = self._make_direct_gate_step(op, temp_env, reason=f"switch_via_{target_code}")
-            switch_out, e3 = self._make_switch_step(list(op.qubits), target_code, code)
+            switch_out, e3, candidate_layout = self._make_switch_step(
+                list(op.qubits), target_code, code, candidate_layout
+            )
             final_env = dict(env)
             effect = e1.seq(e2).seq(e3)
             candidates.append(
@@ -387,6 +422,7 @@ class Compiler:
                     steps=[switch_in, gate_step, switch_out],
                     effect=effect,
                     final_env=final_env,
+                    final_layout=candidate_layout,
                     kind="switch",
                 )
             )
@@ -400,13 +436,14 @@ class Compiler:
             resource_profiles.append(high_fidelity)
 
         for profile in resource_profiles:
-            steps, effect = self._make_resource_steps(op, env, profile)
+            steps, effect, final_layout = self._make_resource_steps(op, env, layout.copy(), profile)
             candidates.append(
                 PlanCandidate(
                     name=profile.name,
                     steps=steps,
                     effect=effect,
                     final_env=dict(env),
+                    final_layout=final_layout,
                     kind="resource",
                 )
             )
@@ -459,11 +496,17 @@ class Compiler:
         return step, effect
 
     def _make_switch_step(
-        self, qubits: list[str], source_code: str, target_code: str
-    ) -> tuple[FTStep, Effect]:
+        self, qubits: list[str], source_code: str, target_code: str, layout: LayoutState
+    ) -> tuple[FTStep, Effect, LayoutState]:
         profile = self.rules.switch_rule(source_code, target_code)
         if profile is None:
             raise ValueError(f"no switch rule {source_code} -> {target_code}")
+        layout, layout_event = layout.switch(
+            qubits,
+            self.rules.codes[source_code],
+            self.rules.codes[target_code],
+            profile,
+        )
         effect = profile.instantiated_effect().scaled_for_qubits(len(qubits), keep_switch_count=True)
         step = FTStep(
             op="switch",
@@ -473,17 +516,24 @@ class Compiler:
             output_codes={q: target_code for q in qubits},
             effect=effect,
             cert_level=profile.cert_level,
-            details={"from": source_code, "to": target_code, "sources": profile.sources_json()},
+            details={
+                "from": source_code,
+                "to": target_code,
+                "sources": profile.sources_json(),
+                "layout_note": profile.layout_note,
+                "layout_event": layout_event,
+            },
         )
-        return step, effect
+        return step, effect, layout
 
     def _make_resource_steps(
-        self, op: LogicalOp, env: dict[str, QType], profile: RuleProfile
-    ) -> tuple[list[FTStep], Effect]:
+        self, op: LogicalOp, env: dict[str, QType], layout: LayoutState, profile: RuleProfile
+    ) -> tuple[list[FTStep], Effect, LayoutState]:
         assert op.gate is not None
         code = env[op.qubits[0]].code
         resource_id = self._fresh_resource_id(op.gate)
         full = profile.instantiated_effect()
+        layout_event = layout.reserve_workspace(full.qubits_peak, profile.name)
         factory_cycles = max(1, full.cycles - 4)
         factory_qr = max(1, full.qubit_rounds - 500)
         factory_meas = max(0, full.measurements - 1)
@@ -527,6 +577,7 @@ class Compiler:
                 "for_gate": op.gate,
                 "produces": resource_id,
                 "sources": profile.sources_json(),
+                "layout_event": layout_event,
             },
         )
         consume_step = FTStep(
@@ -544,7 +595,7 @@ class Compiler:
                 "sources": profile.sources_json(),
             },
         )
-        return [factory_step, consume_step], factory_effect.seq(consume_effect)
+        return [factory_step, consume_step], factory_effect.seq(consume_effect), layout
 
     def _candidate_cert_level(self, candidate: PlanCandidate) -> str:
         levels = {step.cert_level for step in self._flatten_steps(candidate.steps)}
@@ -586,6 +637,12 @@ class Compiler:
     def _switch_allowed(self, source_code: str, target_code: str, allow_assumed: bool) -> bool:
         profile = self.rules.switch_rule(source_code, target_code)
         if profile is None:
+            return False
+        if not self.rules.code_supported_on_topology(source_code, self.backend.topology):
+            return False
+        if not self.rules.code_supported_on_topology(target_code, self.backend.topology):
+            return False
+        if not self.rules.rule_supported_on_topology(profile, self.backend.topology):
             return False
         return allow_assumed or profile.cert_level != "Assumed"
 

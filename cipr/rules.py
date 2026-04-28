@@ -33,6 +33,8 @@ class CodeProfile:
     distance: int
     gates: frozenset[str]
     gate_kind: GateKind
+    footprint_qubits: int
+    supported_topologies: frozenset[str]
     sources: tuple[SourceRef, ...] = ()
 
 
@@ -44,6 +46,9 @@ class RuleProfile:
     effect: Effect
     assumptions: tuple[str, ...] = ()
     sources: tuple[SourceRef, ...] = ()
+    supported_topologies: frozenset[str] = frozenset({"grid2d", "long_range"})
+    workspace_qubits: int = 0
+    layout_note: str = ""
 
     def instantiated_effect(self) -> Effect:
         effect = self.effect.copy()
@@ -127,6 +132,8 @@ class RuleLibrary:
                 distance=5,
                 gates=frozenset({"H", "S"}),
                 gate_kind="native",
+                footprint_qubits=25,
+                supported_topologies=frozenset({"grid2d", "long_range"}),
                 sources=(WAN2024, ITOGAWA2025),
             ),
             "Steane3": CodeProfile(
@@ -134,6 +141,8 @@ class RuleLibrary:
                 distance=3,
                 gates=frozenset({"H", "S", "CNOT"}),
                 gate_kind="transversal",
+                footprint_qubits=7,
+                supported_topologies=frozenset({"grid2d", "long_range"}),
                 sources=(BUTT2024, ITOGAWA2025),
             ),
             "Tetra15": CodeProfile(
@@ -141,7 +150,18 @@ class RuleLibrary:
                 distance=3,
                 gates=frozenset({"CNOT", "T"}),
                 gate_kind="transversal",
+                footprint_qubits=15,
+                supported_topologies=frozenset({"grid2d", "long_range"}),
                 sources=(BUTT2024, HEUSSEN2025),
+            ),
+            "QLDPC12": CodeProfile(
+                name="QLDPC12",
+                distance=4,
+                gates=frozenset({"H", "S", "CNOT", "T"}),
+                gate_kind="transversal",
+                footprint_qubits=12,
+                supported_topologies=frozenset({"long_range"}),
+                sources=(PROTOTYPE_ASSUMPTION,),
             ),
         }
 
@@ -290,6 +310,8 @@ class RuleLibrary:
                 ),
                 ("prototype bridge: surface-to-Steane data switch not directly reported by cited code-switching papers",),
                 (PROTOTYPE_ASSUMPTION, ITOGAWA2025),
+                workspace_qubits=7,
+                layout_note="MVP assumes a compact grid patch adjacent to the source surface patch.",
             ),
             ("Steane3", "SurfaceD5"): RuleProfile(
                 "Switch_Steane3_to_SurfaceD5",
@@ -308,6 +330,8 @@ class RuleLibrary:
                 ),
                 ("prototype bridge: Steane-to-surface data switch not directly reported by cited code-switching papers",),
                 (PROTOTYPE_ASSUMPTION, ITOGAWA2025),
+                workspace_qubits=25,
+                layout_note="MVP assumes a surface-code output patch can reuse the Steane footprint plus nearby grid workspace.",
             ),
             ("Steane3", "Tetra15"): RuleProfile(
                 "Switch_Steane3_to_Tetra15",
@@ -327,6 +351,8 @@ class RuleLibrary:
                 ),
                 ("PRX Quantum 2024 Table I reports [[7,1,3]] -> [[15,1,3]] with 17 qubits and 72 CNOT gates; 3% logical failure is the deterministic logical-gate estimate in the abstract.",),
                 (BUTT2024,),
+                workspace_qubits=10,
+                layout_note="Table I uses 17 qubits for a 7-to-15 switch; the MVP treats the 10-qubit difference as temporary workspace.",
             ),
             ("Tetra15", "Steane3"): RuleProfile(
                 "Switch_Tetra15_to_Steane3",
@@ -346,6 +372,8 @@ class RuleLibrary:
                 ),
                 ("PRX Quantum 2024 Table I reports [[15,1,3]] -> [[7,1,3]] with 17 qubits and 18 CNOT gates; 3% logical failure is the deterministic logical-gate estimate in the abstract.",),
                 (BUTT2024,),
+                workspace_qubits=2,
+                layout_note="The target footprint is smaller; the MVP records released physical qubits after switching back.",
             ),
             ("SurfaceD5", "Tetra15"): RuleProfile(
                 "Switch_SurfaceD5_to_Tetra15",
@@ -365,6 +393,8 @@ class RuleLibrary:
                 ),
                 ("prototype bridge for hybrid case study; not directly reported as a surface-to-tetrahedral switch",),
                 (PROTOTYPE_ASSUMPTION,),
+                workspace_qubits=31,
+                layout_note="Prototype grid-compatible bridge used only to exercise hybrid planning.",
             ),
             ("Tetra15", "SurfaceD5"): RuleProfile(
                 "Switch_Tetra15_to_SurfaceD5",
@@ -384,6 +414,52 @@ class RuleLibrary:
                 ),
                 ("prototype bridge for hybrid case study; not directly reported as a tetrahedral-to-surface switch",),
                 (PROTOTYPE_ASSUMPTION,),
+                workspace_qubits=41,
+                layout_note="Prototype grid-compatible bridge used only to exercise hybrid planning.",
+            ),
+            ("SurfaceD5", "QLDPC12"): RuleProfile(
+                "Switch_SurfaceD5_to_QLDPC12",
+                "switch",
+                "Assumed",
+                Effect(
+                    err=5.0e-5,
+                    fail=0.02,
+                    accept=0.98,
+                    cycles=20,
+                    qubit_rounds=3200,
+                    qubits_peak=120,
+                    switch_count=1,
+                    measurements=8,
+                    decoder_latency=4,
+                    two_qubit_gates=160,
+                ),
+                ("negative-control rule: qLDPC-style switch requires long-range connectivity and is rejected on Grid2D_SurfaceLike",),
+                (PROTOTYPE_ASSUMPTION,),
+                supported_topologies=frozenset({"long_range"}),
+                workspace_qubits=95,
+                layout_note="Requires nonlocal qLDPC check connectivity; not embeddable on the MVP grid backend.",
+            ),
+            ("QLDPC12", "SurfaceD5"): RuleProfile(
+                "Switch_QLDPC12_to_SurfaceD5",
+                "switch",
+                "Assumed",
+                Effect(
+                    err=5.0e-5,
+                    fail=0.02,
+                    accept=0.98,
+                    cycles=20,
+                    qubit_rounds=3200,
+                    qubits_peak=120,
+                    switch_count=1,
+                    measurements=8,
+                    decoder_latency=4,
+                    two_qubit_gates=160,
+                ),
+                ("negative-control rule: qLDPC-style switch requires long-range connectivity and is rejected on Grid2D_SurfaceLike",),
+                (PROTOTYPE_ASSUMPTION,),
+                supported_topologies=frozenset({"long_range"}),
+                workspace_qubits=95,
+                layout_note="Requires nonlocal qLDPC check connectivity; not embeddable on the MVP grid backend.",
             ),
         }
 
@@ -482,3 +558,9 @@ class RuleLibrary:
 
     def codes_supporting(self, gate: str) -> list[str]:
         return [code for code, profile in self.codes.items() if gate in profile.gates]
+
+    def code_supported_on_topology(self, code: str, topology: str) -> bool:
+        return topology in self.codes[code].supported_topologies
+
+    def rule_supported_on_topology(self, profile: RuleProfile, topology: str) -> bool:
+        return topology in profile.supported_topologies

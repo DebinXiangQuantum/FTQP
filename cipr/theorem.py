@@ -50,6 +50,7 @@ def verify_compile_result(name: str, payload: dict[str, Any], smt_dir: Path) -> 
     _check_nonnegative(report, steps, effect)
     _check_no_unsupported_direct_gate(report, steps)
     _check_resource_linearity(report, steps)
+    _check_layout_events(report, steps, result.get("backend"), result.get("final_layout"))
     _check_conservative_effect_bounds(report, top_steps, effect)
     if z3 is not None:
         _check_with_z3(report, top_steps, effect)
@@ -148,6 +149,72 @@ def _check_resource_linearity(report: ProofReport, steps: list[dict[str, Any]]) 
             report.failures.append(f"{resource} consumed without production")
     if not any("produced" in f or "consumed" in f for f in report.failures):
         report.checked.append("linear_resources_produced_and_consumed_once")
+
+
+def _check_layout_events(
+    report: ProofReport,
+    steps: list[dict[str, Any]],
+    backend: dict[str, Any] | None,
+    final_layout: dict[str, Any] | None,
+) -> None:
+    if backend is None:
+        report.failures.append("missing backend in compile result")
+        return
+    capacity = int(backend.get("capacity_qubits", 0))
+    topology = backend.get("topology")
+    backend_name = backend.get("name")
+    current_free = capacity
+
+    for step in steps:
+        event = step.get("details", {}).get("layout_event")
+        if event is None:
+            continue
+        rule = step["rule"]
+        if event.get("backend") != backend_name:
+            report.failures.append(f"{rule} layout backend mismatch")
+        if event.get("topology") != topology:
+            report.failures.append(f"{rule} layout topology mismatch")
+        free_before = int(event.get("free_before", -1))
+        free_after = int(event.get("free_after", -1))
+        if free_before != current_free:
+            report.failures.append(f"{rule} layout free_before {free_before} != current {current_free}")
+        if free_before < 0 or free_after < 0:
+            report.failures.append(f"{rule} layout free count is negative")
+        if free_before > capacity or free_after > capacity:
+            report.failures.append(f"{rule} layout free count exceeds backend capacity")
+
+        kind = event.get("kind")
+        if kind == "prepare":
+            allocated = int(event.get("allocated", 0))
+            if free_after != free_before - allocated:
+                report.failures.append(f"{rule} prepare layout equation failed")
+        elif kind == "switch":
+            old = int(event.get("old_footprint", 0))
+            new = int(event.get("new_footprint", 0))
+            workspace = int(event.get("workspace_reserved", 0))
+            if workspace > free_before:
+                report.failures.append(f"{rule} reserves unavailable workspace")
+            if free_after != free_before + old - new:
+                report.failures.append(f"{rule} switch layout equation failed")
+        elif kind == "workspace":
+            workspace = int(event.get("workspace_reserved", 0))
+            if workspace > free_before:
+                report.failures.append(f"{rule} reserves unavailable workspace")
+            if free_after != free_before:
+                report.failures.append(f"{rule} workspace reservation should not change ownership")
+        else:
+            report.failures.append(f"{rule} has unknown layout event kind {kind}")
+        current_free = free_after
+
+    if final_layout is not None:
+        final_backend = final_layout.get("backend", {})
+        if final_backend.get("name") != backend_name:
+            report.failures.append("final layout backend mismatch")
+        if int(final_layout.get("free_qubits", -1)) != current_free:
+            report.failures.append("final layout free_qubits does not match layout event trace")
+
+    if not any("layout" in failure or "workspace" in failure for failure in report.failures):
+        report.checked.append("layout_events_preserve_fixed_backend_and_free_counts")
 
 
 def _check_conservative_effect_bounds(
