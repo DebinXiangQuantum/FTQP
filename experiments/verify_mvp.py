@@ -20,6 +20,7 @@ SMT_DIR = OUT_DIR / "smt"
 
 
 def main() -> None:
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
     reports = []
     for path in sorted(OUT_DIR.glob("case_study_*.json")):
         if path.name == "case_study_summary.json":
