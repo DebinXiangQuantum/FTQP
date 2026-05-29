@@ -1,6 +1,6 @@
 # CiPR-FTQC MVP 技术说明与核对清单
 
-本文档说明当前项目实现的技术边界、自动验证能力、需要人工核对的内容，以及后续仍需解决的问题。它面向论文写作和后续实现交接，不把当前 MVP 夸大成完整物理级 FTQC 证明。
+本文档说明当前项目实现的技术边界、自动验证能力、需要人工核对的内容，以及后续仍需解决的问题
 
 ## 1. 当前目标
 
@@ -19,7 +19,7 @@ logical QEC program
 - 当前 logical qubit 所在 code；
 - 当前 code 支持的 native/transversal gates；
 - code switching 作为 typestate transition；
-- magic/resource-state factory 作为线性资源；
+- magic/resource-state factory 作为非线性资源；
 - logical error、acceptance、cycle、qubit-round、switch/factory count 等 quantitative effects；
 - 固定 backend 上的 topology/workspace/layout side conditions；
 - 可被自动检查的 protocol certificate。
