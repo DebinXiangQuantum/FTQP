@@ -1,0 +1,76 @@
+\documentclass[acmsmall,screen,review,anonymous]{acmart}
+
+\setcopyright{none}
+\acmConference[POPL '27]{ACM SIGPLAN Symposium on Principles of Programming Languages}{January 2027}{}
+\acmYear{2027}
+\acmDOI{}
+\acmISBN{}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{xspace}
+
+\newcommand{\system}{CiPR-FTQC\xspace}
+\newcommand{\lang}{FTQP\xspace}
+\newcommand{\judgment}{\mathcal{K};\Gamma;\Delta \vdash t : \Gamma';\Delta' \;!\; E}
+\newcommand{\code}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\gate}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\res}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\mode}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\cert}[1]{\ensuremath{\mathsf{#1}}}
+\newcommand{\Cap}{\ensuremath{\mathsf{Cap}}}
+\newcommand{\Switch}{\ensuremath{\mathsf{Switch}}}
+\newcommand{\Factory}{\ensuremath{\mathsf{Factory}}}
+\newcommand{\Backend}{\ensuremath{\mathsf{Backend}}}
+\newcommand{\Checked}{\cert{Checked}}
+\newcommand{\Certified}{\cert{Certified}}
+\newcommand{\Assumed}{\cert{Assumed}}
+\newcommand{\State}{\mode{State}}
+\newcommand{\Observable}{\mode{Observable}}
+
+\title[Code-Indexed Resource Calculus for FTQC]{A Code-Indexed Probabilistic Resource Calculus for Fault-Tolerant Quantum Programming}
+
+\author{Anonymous Authors}
+\affiliation{\institution{Anonymous Institution}\country{}}
+
+\begin{document}
+
+\begin{abstract}
+Fault-tolerant quantum programs are written as logical operations, but they run through a heterogeneous collection of code-specific gates, code switches, magic-state factories, decoders, and layout constraints.
+This mismatch makes a compiler decision hard to audit: a direct gate may be applied outside the current code's capability set, a probabilistic resource state may be reused as if it were classical data, or an imported physical theorem may be silently treated as a local proof.
+This paper presents \system, a code-indexed, probabilistic, resource-aware calculus for elaborating logical quantum programs into certified fault-tolerant acquisition plans.
+The calculus follows a simple running example: a \code{SurfaceD5} program that asks for $\gate{T}$, $\gate{CNOT}$, and $\gate{CCZ}$ operations even though its initial code exposes only a small direct gate set.
+\system assigns encoded data types $Q[C,d,\mu]$, tracks magic and Bell resources linearly, and composes conservative effects for logical error, failure, acceptance, space, and time.
+Its central judgment, $\judgment$, checks that each target acquisition step is justified by a capability rule, consumes resources exactly once, respects a fixed backend context, and records whether the rule is locally checked, certified by an imported theorem, or still assumed.
+We implement the calculus in a prototype compiler/checker that plans direct gates, switch-via-code paths, resource-state injection, and hybrid regions over a small rule library drawn from recent fault-tolerant quantum protocols.
+The implementation emits auditable sidecars, SMT obligations, protocol certificates, decoder contracts, geometry checks, and a Lean proof kernel for core resource and certificate properties.
+On the current case studies, the checker accepts multiple exploratory acquisition strategies, rejects unsupported direct gates, duplicate resource consumption, and backend-incompatible qLDPC-style switches, and produces a full-stack report with 53 proof obligations and explicit imported-theorem boundaries.
+\end{abstract}
+
+\maketitle
+
+\input{sections/introduction}
+\input{sections/overview}
+\input{sections/core-language}
+\input{sections/typing-metatheory}
+\input{sections/implementation}
+\input{sections/case-study}
+\input{sections/evaluation}
+\input{sections/related-work}
+\input{sections/limitations}
+\input{sections/conclusion}
+
+\begin{acks}
+Omitted for anonymous review.
+\end{acks}
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{references}
+
+\appendix
+\input{sections/appendix-claim-evidence}
+
+\end{document}

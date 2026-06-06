@@ -1,0 +1,94 @@
+\section{Evaluation}
+
+The evaluation asks whether the prototype produces auditable acquisition evidence for the kinds of plans described in Section~\ref{sec:case-study}.
+We evaluate the planner/checker on two logical workloads over the same \texttt{Grid2D\_SurfaceLike} backend.
+The first is the compact \code{SurfaceD5} kernel from the case study.
+The second is a denser phase-oracle workload with seven initial surface-code qubits, a longer region of $\gate{CNOT}$ and $\gate{T}$ operations, two measured branches, a $\gate{CCZ}$ acquisition, and final logical measurements.
+The goal is not to beat a production FTQC compiler.
+It is to check that different acquisition strategies produce different sidecars, that the checker accepts those sidecars only under the right certificate policy, and that negative examples fail for the intended static reasons.
+
+\begin{table}[t]
+\centering
+\caption{Compact \code{SurfaceD5} kernel on \texttt{Grid2D\_SurfaceLike}. All rows are accepted in exploratory mode and rejected in strict mode because each contains at least one \Assumed{} rule. Lower is better for error, cycles, qubit-rounds, switches, and factories; higher is better for acceptance.}
+\label{tab:surface-kernel-results}
+\begin{tabular}{lrrrrrr}
+\toprule
+Strategy & Err. & Accept & Cycles & Q-rounds & Switch & Factory \\
+\midrule
+magic-only & $2.56125{\cdot}10^{-4}$ & 0.8376 & 90 & 23565 & 0 & 6 \\
+switch-only & $3.3302{\cdot}10^{-4}$ & 0.7959 & 111 & 27313 & 10 & 1 \\
+hybrid & $2.71055{\cdot}10^{-4}$ & 0.8161 & 76 & 23705 & 2 & 2 \\
+best & $2.56125{\cdot}10^{-4}$ & 0.8376 & 90 & 23565 & 0 & 6 \\
+random seed 7 & $2.98055{\cdot}10^{-4}$ & 0.8293 & 104 & 24045 & 4 & 4 \\
+random seed 17 & $4.56055{\cdot}10^{-4}$ & 0.4230 & 128 & 20015 & 0 & 6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Table~\ref{tab:surface-kernel-results} summarizes the compact kernel without repeating the full case-study trace.
+The main observation is that the sidecar exposes a real strategy tradeoff.
+The magic-only and best rows coincide under the current score because the resource path keeps the error and acceptance accounting favorable despite using six factories.
+The hybrid row is faster, at 76 cycles, because it acquires the two $\gate{CNOT}$ gates and two $\gate{T}$ gates in the dense block through a single \code{Tetra15} region, but it pays two switch events and records bridge assumptions.
+The switch-only row has fewer factories but ten switches and a worse conservative error/acceptance summary.
+The randomized rows are useful sanity checks: they show that the planner is not hard-wired to one expansion and that mixed acquisition choices produce distinct cost and certificate profiles.
+
+\begin{table}[t]
+\centering
+\caption{Denser phase-oracle workload on the same backend. The hybrid strategy reduces cycle count by acquiring the first dense non-native region once, while the best score still prefers the magic-only row under the current weighted objective.}
+\label{tab:complex-results-sections}
+\begin{tabular}{lrrrrrr}
+\toprule
+Strategy & Err. & Accept & Cycles & Q-rounds & Switch & Factory \\
+\midrule
+magic-only & $5.12195{\cdot}10^{-4}$ & 0.7957 & 147 & 42630 & 0 & 12 \\
+switch-only & $6.6802{\cdot}10^{-4}$ & 0.7056 & 189 & 51640 & 22 & 1 \\
+hybrid & $5.42055{\cdot}10^{-4}$ & 0.7553 & 107 & 42910 & 2 & 4 \\
+best & $5.12195{\cdot}10^{-4}$ & 0.7957 & 147 & 42630 & 0 & 12 \\
+random seed 23 & $8.5159{\cdot}10^{-4}$ & 0.2686 & 215 & 43389 & 6 & 9 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The denser workload in Table~\ref{tab:complex-results-sections} stresses the same mechanism with more opportunities to make a poor acquisition choice.
+The magic-only plan uses twelve factories and no switches, yielding 147 cycles and acceptance 0.7957.
+The switch-only plan uses one factory but twenty-two switches, yielding 189 cycles and acceptance 0.7056.
+The hybrid plan uses two switches and four factories, yielding 107 cycles and acceptance 0.7553.
+This is the empirical pattern the case study was designed to make understandable: a region switch can reduce time when several non-native gates share a target code, but the checker still records the price paid in switches, assumptions, and conservative acceptance.
+Because the objective function also weights error, qubit-rounds, switches, and factories, \texttt{best} currently selects the magic-only row rather than the fastest row.
+That behavior is acceptable for this prototype because the objective is transparent and the generated sidecars allow the paper to report the tradeoff instead of hiding it behind a single winner.
+
+The negative tests in Table~\ref{tab:negative-tests-sections} validate the failure modes that motivate the calculus.
+The first test constructs a target step that directly applies $\gate{CNOT}$ to two \code{SurfaceD5} qubits.
+The checker rejects it twice, once for each operand, because the rule library contains no direct $\Cap(\code{SurfaceD5},\gate{CNOT})$ witness.
+The second test produces one fake $\res{TState}$ identifier and consumes it for two different target gates.
+The checker rejects the plan with \texttt{resource res\_t\_shared consumed twice}, which is the implementation analogue of removing a resource from the linear context after first use.
+The third test attempts to switch from \code{SurfaceD5} to the negative-control \code{QLDPC12} profile on the grid backend.
+The checker rejects both the target code and the switch rule because the profile requires long-range connectivity; exploratory mode also reports that the switch rule is \Assumed{}.
+These tests are small by design, but each corresponds to a concrete static obligation in the formal calculus.
+
+\begin{table}[t]
+\centering
+\caption{Negative tests. Each rejected plan targets a different checker invariant.}
+\label{tab:negative-tests-sections}
+\begin{tabular}{lp{0.52\linewidth}p{0.22\linewidth}}
+\toprule
+Test & Rejected behavior & Checker reason \\
+\midrule
+direct CNOT & Apply $\gate{CNOT}$ directly to \code{SurfaceD5} data. & Missing direct capability witness. \\
+duplicate resource & Consume the same \texttt{res\_t\_shared} identifier twice. & Linear resource already consumed. \\
+qLDPC switch & Switch \code{SurfaceD5} to \code{QLDPC12} on a grid backend. & Code and rule require long-range topology. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The integrated evidence report checks that these examples are not isolated scripts.
+The current full-stack run records 11 case-study compile results, 11 geometry reports, 3 code-specification groups, 2 rule-specification groups, 2 protocol certificates, 2 decoder reports, 53 total obligations, and 26 generated artifacts with hashes.
+The protocol layer checks local GF(2) facts for selected switch and factory certificates; the decoder layer distinguishes a checked small-code syndrome table from an imported surface-code decoder contract; the geometry layer checks conservative rectangular embeddings and workspace accounting; the SMT files encode arithmetic bound obligations; and the Lean build checks the small resource/certificate core.
+The report's boundary statement is part of the result: locally discharged obligations and imported physical theorem dependencies are reported separately, and \Assumed{} prototype rules are never counted as local proofs.
+
+The evaluation has three limitations.
+First, the workloads are case studies rather than a benchmark suite, so the numbers should be read as evidence about the compiler/checker interface, not as architecture-level performance claims.
+Second, several useful bridge and resource rules are still \Assumed{}, which means the current case-study plans are exploratory artifacts and strict mode correctly rejects them.
+Third, the layout checker uses conservative capacity and rectangular-embedding checks rather than a complete scheduler for lattice surgery, routing, or factory placement.
+These limitations are not peripheral: they define the current proof boundary.
+The empirical claim supported by the present evaluation is that \system can generate, check, and report auditable acquisition plans with explicit costs and certificate levels, including clear rejection of illegal capability use, duplicate resources, and backend-incompatible switches.

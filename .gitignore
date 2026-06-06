@@ -1,5 +1,6 @@
 .DS_Store
 .venv/
+formal/.lake/
 __pycache__/
 *.py[cod]
 .python-version

@@ -1,0 +1,500 @@
+[
+  {
+    "checked": [
+      "all_paulis_have_expected_length",
+      "logical_x_and_z_anticommute",
+      "subsystem_stabilizers_commute",
+      "target_stabilizers_commute",
+      "stabilizers_preserve_common_logicals",
+      "gauge_corrections_preserve_logicals",
+      "gauge_corrections_span_target_syndromes"
+    ],
+    "details": {
+      "correction_syndrome_matrix": [
+        [
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1
+        ]
+      ],
+      "gauge_corrections": [
+        {
+          "n": 15,
+          "name": "Gauge_Z_for_red_face_BZ_BG",
+          "weight": 4,
+          "x_support": [],
+          "z_support": [
+            2,
+            5,
+            11,
+            13
+          ]
+        },
+        {
+          "n": 15,
+          "name": "Gauge_Z_for_green_face_basis",
+          "weight": 2,
+          "x_support": [],
+          "z_support": [
+            0,
+            1
+          ]
+        },
+        {
+          "n": 15,
+          "name": "Gauge_Z_for_blue_face_basis",
+          "weight": 2,
+          "x_support": [],
+          "z_support": [
+            0,
+            3
+          ]
+        }
+      ],
+      "logical_x": {
+        "n": 15,
+        "name": "Common_logical_X_Eq16",
+        "weight": 7,
+        "x_support": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "z_support": []
+      },
+      "logical_z": {
+        "n": 15,
+        "name": "Common_logical_Z_Eq16",
+        "weight": 7,
+        "x_support": [],
+        "z_support": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      "source": "Tetra15",
+      "source_ref": "Butt et al. 2024, Sec. IV, Eq. (14)--(16), Fig. 7(a): switching is gauge fixing between variants of the same subsystem code.",
+      "target": "Steane3",
+      "target_stabilizers": [
+        {
+          "n": 15,
+          "name": "Steane_X_red_face",
+          "weight": 4,
+          "x_support": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "z_support": []
+        },
+        {
+          "n": 15,
+          "name": "Steane_X_green_face",
+          "weight": 4,
+          "x_support": [
+            1,
+            2,
+            4,
+            5
+          ],
+          "z_support": []
+        },
+        {
+          "n": 15,
+          "name": "Steane_X_blue_face",
+          "weight": 4,
+          "x_support": [
+            2,
+            3,
+            5,
+            6
+          ],
+          "z_support": []
+        }
+      ]
+    },
+    "failures": [],
+    "name": "Butt2024_Steane_Tetra15_GaugeFixing_Core",
+    "ok": true
+  },
+  {
+    "checked": [
+      "distillation_checks_commute",
+      "no_accepted_logical_errors_up_to_weight_2"
+    ],
+    "details": {
+      "checks": [
+        {
+          "n": 3,
+          "name": "X_parity_01",
+          "weight": 2,
+          "x_support": [
+            0,
+            1
+          ],
+          "z_support": []
+        },
+        {
+          "n": 3,
+          "name": "X_parity_12",
+          "weight": 2,
+          "x_support": [
+            1,
+            2
+          ],
+          "z_support": []
+        }
+      ],
+      "detect_up_to_weight": 2,
+      "logical_error": {
+        "n": 3,
+        "name": "Logical_ZZZ",
+        "weight": 3,
+        "x_support": [],
+        "z_support": [
+          0,
+          1,
+          2
+        ]
+      },
+      "n_inputs": 3,
+      "source_ref": "Generic stabilizer distillation skeleton: accepted low-weight input Pauli errors must not implement the output logical error.",
+      "undetected_logical_errors": []
+    },
+    "failures": [],
+    "name": "Toy_Repetition_MagicDistillation_Syndrome_Core",
+    "ok": true
+  },
+  {
+    "checked": [
+      "all_paulis_have_expected_length",
+      "logical_x_and_z_anticommute",
+      "subsystem_stabilizers_commute",
+      "target_stabilizers_commute",
+      "stabilizers_preserve_common_logicals",
+      "gauge_corrections_preserve_logicals",
+      "gauge_corrections_span_target_syndromes",
+      "butt2024_algebraic_gauge_fixing_core_machine_checked",
+      "table_i_switch_qubit_count_recorded",
+      "table_i_steane_to_tetra_cnot_count_recorded",
+      "table_i_tetra_to_steane_cnot_count_recorded"
+    ],
+    "details": {
+      "certificate_boundary": "Algebraic gauge fixing is checked over GF(2). Complete flag-circuit single-fault tolerance is imported from the cited paper and recorded as a theorem dependency.",
+      "machine_checked_part": {
+        "checked": [
+          "all_paulis_have_expected_length",
+          "logical_x_and_z_anticommute",
+          "subsystem_stabilizers_commute",
+          "target_stabilizers_commute",
+          "stabilizers_preserve_common_logicals",
+          "gauge_corrections_preserve_logicals",
+          "gauge_corrections_span_target_syndromes"
+        ],
+        "details": {
+          "correction_syndrome_matrix": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ],
+            [
+              0,
+              0,
+              1
+            ]
+          ],
+          "gauge_corrections": [
+            {
+              "n": 15,
+              "name": "Gauge_Z_for_red_face_BZ_BG",
+              "weight": 4,
+              "x_support": [],
+              "z_support": [
+                2,
+                5,
+                11,
+                13
+              ]
+            },
+            {
+              "n": 15,
+              "name": "Gauge_Z_for_green_face_basis",
+              "weight": 2,
+              "x_support": [],
+              "z_support": [
+                0,
+                1
+              ]
+            },
+            {
+              "n": 15,
+              "name": "Gauge_Z_for_blue_face_basis",
+              "weight": 2,
+              "x_support": [],
+              "z_support": [
+                0,
+                3
+              ]
+            }
+          ],
+          "logical_x": {
+            "n": 15,
+            "name": "Common_logical_X_Eq16",
+            "weight": 7,
+            "x_support": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "z_support": []
+          },
+          "logical_z": {
+            "n": 15,
+            "name": "Common_logical_Z_Eq16",
+            "weight": 7,
+            "x_support": [],
+            "z_support": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "source": "Tetra15",
+          "source_ref": "Butt et al. 2024, Sec. IV, Eq. (14)--(16), Fig. 7(a): switching is gauge fixing between variants of the same subsystem code.",
+          "target": "Steane3",
+          "target_stabilizers": [
+            {
+              "n": 15,
+              "name": "Steane_X_red_face",
+              "weight": 4,
+              "x_support": [
+                0,
+                1,
+                2,
+                3
+              ],
+              "z_support": []
+            },
+            {
+              "n": 15,
+              "name": "Steane_X_green_face",
+              "weight": 4,
+              "x_support": [
+                1,
+                2,
+                4,
+                5
+              ],
+              "z_support": []
+            },
+            {
+              "n": 15,
+              "name": "Steane_X_blue_face",
+              "weight": 4,
+              "x_support": [
+                2,
+                3,
+                5,
+                6
+              ],
+              "z_support": []
+            }
+          ]
+        },
+        "failures": [],
+        "name": "Butt2024_Steane_Tetra15_GaugeFixing_Core",
+        "ok": true
+      },
+      "resource_table": {
+        "Steane3_to_Tetra15": {
+          "building_block_qubits": 17,
+          "cnot_count": 72
+        },
+        "Tetra15_to_Steane3": {
+          "building_block_qubits": 17,
+          "cnot_count": 18
+        },
+        "deterministic_gate_logical_failure_reference": 0.03
+      }
+    },
+    "failures": [],
+    "imported": [
+      {
+        "claim": "The cited paper constructs deterministic distance-3 2D/3D color-code switching protocols with flag-qubit fault-tolerant circuits; the MVP imports the complete flag-fault enumeration as a theorem rather than re-enumerating every circuit fault locally.",
+        "locator": "Sec. IV--V, Table I, and flag-qubit switching circuits",
+        "name": "Butt2024 flag-circuit single-fault-tolerance theorem",
+        "source": {
+          "citation": "Butt et al., Fault-Tolerant Code-Switching Protocols for Near-Term Quantum Processors, PRX Quantum 5, 020345 (2024)",
+          "key": "8QS8EFNR",
+          "locator": "pp. 020345-2--020345-4, Fig. 1--3; p. 020345-4, Table I",
+          "note": "2D triangular/Steane code has transversal H,S,CNOT; tetrahedral [[15,1,3]] has transversal T,CNOT; Table I reports switch building-block qubits/CNOT counts.",
+          "url": "https://doi.org/10.1103/PRXQuantum.5.020345"
+        }
+      }
+    ],
+    "name": "Butt2024_Steane_Tetra15_FullSwitchCertificate",
+    "ok": true
+  },
+  {
+    "checked": [
+      "triorthogonal_matrix_has_one_odd_logical_row_and_four_even_check_rows",
+      "all_pair_overlaps_even",
+      "all_triple_overlaps_even",
+      "all_weight_1_and_2_input_z_errors_are_detected",
+      "leading_weight_3_logical_error_count_is_35"
+    ],
+    "details": {
+      "accepted_error_counts": {
+        "1": 0,
+        "2": 0,
+        "3": 35
+      },
+      "accepted_logical_error_counts": {
+        "1": 0,
+        "2": 0,
+        "3": 35
+      },
+      "column_count": 15,
+      "leading_output_error_polynomial": "35 p^3 + O(p^4)",
+      "matrix_rows": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      ],
+      "row_count": 5
+    },
+    "failures": [],
+    "imported": [
+      {
+        "claim": "The constant-time surface-code implementation records 35 p^3 leading suppression, six code cycles, and 111 d^2 qubit-cycle profile for the 15-to-1 construction used by the rule library.",
+        "locator": "pp. 1--2 and p. 7",
+        "name": "Wan2024 constant-time 15-to-1 surface-code implementation",
+        "source": {
+          "citation": "Wan, Constant-time magic state distillation, arXiv:2410.17992 (2024)",
+          "key": "WV8K4EP7",
+          "locator": "pp. 1--2 for O(1) code cycles and 35p^3/7p^3; p. 7 for 111 d^2 and 47 d^2 qubit-cycle costs",
+          "note": "15-to-1 surface-code MSD has leading-order 35 p^3 suppression, O(1) code cycles, 6 code cycles, and 111 d^2 qubit-cycles excluding physical ancilla/injection cost.",
+          "url": "https://arxiv.org/abs/2410.17992"
+        }
+      }
+    ],
+    "name": "ReedMuller15To1_MagicDistillation",
+    "ok": true
+  }
+]

@@ -1,0 +1,47 @@
+\section{Introduction}
+
+Fault-tolerant quantum computation forces a compiler to reason about two languages at once.
+At the algorithmic level, a programmer writes logical operations such as $\gate{H}$, $\gate{CNOT}$, $\gate{T}$, measurements, error-correction rounds, and classical control.
+At the implementation level, those operations are available only through encoded data and code-specific mechanisms: a surface-code patch may expose a convenient Clifford subset, a Steane-like code may expose transversal Clifford gates, a tetrahedral color-code instance may expose a transversal non-Clifford gate, and a magic-state factory may implement a missing operation by preparing and consuming a noisy ancillary resource.
+The compiler must therefore decide not merely where to place gates, but how to acquire the fault-tolerant capability that makes each logical gate legal.
+
+The difficulty is easiest to see through a small program that starts all live data in a \code{SurfaceD5} profile.
+The program prepares four logical qubits, performs a surface-code error-correction round, applies a direct $\gate{H}$, then enters a dense region containing $\gate{CNOT}$ and $\gate{T}$ gates before a later $\gate{CCZ}$ and a measurement-controlled correction.
+In the rule library used by our prototype, \code{SurfaceD5} supports direct $\gate{H}$ and $\gate{S}$, but not direct $\gate{CNOT}$, $\gate{T}$, or $\gate{CCZ}$.
+Thus the source program is not wrong, but it is incomplete as an executable fault-tolerant program: the compiler must elaborate each missing operation into an acquisition plan such as resource-state injection, code switching, or a hybrid region that switches once and executes several gates before switching back.
+
+This acquisition step is a programming-language problem because its correctness depends on information that is usually hidden in compiler engineering artifacts.
+If a compiler emits a single opaque ``apply this gadget'' step, a checker cannot tell whether the current code actually supports the requested gate, whether a magic state was consumed exactly once, whether a code switch fits the target backend, or whether a proof obligation was discharged locally or imported from a protocol paper.
+The issue is not that fault-tolerant protocols lack proofs; recent protocol papers provide many useful building blocks.
+The issue is that a compiler needs a small common interface for composing those building blocks without erasing their capability requirements, resource behavior, effect bounds, and proof status.
+
+This paper presents \system, a code-indexed probabilistic resource calculus for fault-tolerant quantum programming.
+The source language expresses logical intent, while the target language makes acquisition explicit through atoms for native or transversal gates, code switching, resource production and consumption, logical measurement, decoding, frame update, postselection, and reset.
+The central type of an encoded value is $Q[C,d,\mu]$: the qubit is currently protected by code $C$, at distance parameter $d$, with correctness mode $\mu$ distinguishing state-level from observable-level reasoning.
+The central judgment, $\judgment$, says that a target program transforms quantum context $\Gamma$ and linear resource context $\Delta$ into new contexts while producing a conservative effect summary $E$.
+In the running example, this judgment is what prevents a direct $\gate{CNOT}$ on \code{SurfaceD5}, while allowing a checked plan that first acquires a Bell resource or switches into a code with the right transversal capability.
+
+The key design choice in \system is that proof status is part of the rule interface.
+A rule may be \Checked, when the repository discharges the relevant algebraic or software-level obligation locally; \Certified, when local checks are combined with an explicit imported theorem from a cited protocol; or \Assumed, when the rule is a prototype bridge that should not be counted as a paper-level physics claim.
+The strict policy rejects \Assumed{} rules, while exploratory compilation may retain them with warnings.
+This policy is deliberately prosaic but important: it turns the phrase ``assuming this protocol is valid'' into a machine-visible certificate boundary that follows the compiled plan.
+
+We have implemented \system as \lang, a small compiler/checker and formal toolchain.
+The planner elaborates logical programs into direct, resource, switch, hybrid, and randomized acquisition strategies.
+The checker validates capability witnesses, certificate policies, resource linearity, fixed-backend topology constraints, layout-event accounting, and effect bounds.
+The toolchain emits JSON sidecars, SMT-LIB obligations, GF(2) protocol certificates, decoder reports, rectangular patch-geometry checks, artifact hashes, and a Lean 4 proof kernel for core calculus properties.
+The current physical boundary is explicit: algebraic code-switching and resource-linearity properties are checked locally, while complete flag-circuit fault enumeration, surface-code decoder internals, and architecture-level factory profiles remain imported theorem dependencies.
+
+The case studies are intended to support these language and checker claims, not to announce a new fault-tolerant physical protocol.
+On the small running workload, \system validates magic-only, switch-only, hybrid, best, and randomized acquisition strategies on a fixed $64\times64$ grid backend.
+The hybrid strategy uses two switches to reduce the cycle count of the dense region, while the magic-only strategy avoids switches at the cost of more factories.
+Negative tests reject exactly the mistakes the calculus is designed to expose: a direct $\gate{CNOT}$ on \code{SurfaceD5}, duplicate consumption of a shared $\res{TState}$, and a qLDPC-style switch on a grid backend.
+
+This paper makes the following contributions.
+\begin{itemize}[leftmargin=*]
+  \item We formulate fault-tolerant acquisition as a code-indexed target calculus whose primitive atoms expose the evidence needed to audit code capabilities, code switching, resource-state injection, measurement, decoder, frame, postselection, and reset operations.
+  \item We give a type-and-effect discipline for acquisition plans, using code-indexed quantum types, linear probabilistic resources, fixed backend capabilities, certificate policies, and conservative effect composition.
+  \item We mechanize a small proof kernel in Lean for capability rejection, strict-certificate rejection, resource linearity, and effect-bound composition, while marking physical protocol claims that remain imported theorems.
+  \item We implement a prototype compiler/checker and formal toolchain that connects rule-library metadata, protocol certificates, decoder contracts, geometry checks, SMT obligations, and reproducible artifact hashes.
+  \item We report case studies and negative tests showing how the checker accepts auditable acquisition strategies and rejects illegal direct gates, duplicated resources, and backend-incompatible switches.
+\end{itemize}

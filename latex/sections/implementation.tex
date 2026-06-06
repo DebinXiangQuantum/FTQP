@@ -1,0 +1,72 @@
+\section{Implementation}
+
+\lang is implemented as a small compiler/checker whose main job is to preserve the evidence that a fault-tolerant compilation step would otherwise erase.
+The implementation is deliberately organized around three artifacts.
+A source program is a list of \texttt{LogicalOp} nodes, which records what the algorithm asks for: preparation, logical gates, error correction, measurement, barriers, and classical branches.
+A compiled target program is a tree of \texttt{FTStep} nodes, which records how each request was acquired: direct capability use, a switch path, a resource factory followed by consumption, or a derived region acquisition.
+An \texttt{Effect} object travels with every step and gives the conservative account that the checker and the paper tables report.
+This separation is the implementation analogue of the calculus judgment: source syntax keeps the user's logical story compact, while target syntax makes capability, resource, certificate, and backend evidence explicit.
+
+The intermediate representation is small enough that the interesting invariants are visible in the data structures.
+Each live logical qubit has a \texttt{QType(code, distance, mode)}, so a gate step does not merely name its operands; it also records the code in which those operands are currently protected.
+Each target step stores \texttt{input\_codes}, \texttt{output\_codes}, an effect, a certificate level, and a free-form \texttt{details} map that carries rule-specific evidence such as source citations, layout events, produced resource identifiers, or consumed resource identifiers.
+For example, a non-native $\gate{T}$ on \code{SurfaceD5} is not compiled into an opaque macro called ``apply T''.
+It becomes a parent \texttt{acquire\_gate} step with two auditable children:
+\[
+  \mathsf{prepare\_resource}\ r:\res{TState};
+  \quad
+  \mathsf{consume\_resource\_gate}\ r\ \mathsf{for}\ \gate{T}.
+\]
+The identifier $r$ is part of the sidecar, not an explanatory comment, which is what allows the checker to reject a later attempt to consume the same resource again.
+
+The planner treats acquisition as a local search over typed candidates rather than as a fixed gate-expansion pass.
+When it encounters a gate $g$ on qubits currently in code $C$, it first checks whether the rule library contains a direct capability for $(C,g)$.
+If not, it constructs candidates of two forms.
+A switch candidate changes the operands to a code $C'$ that supports $g$, applies the direct rule there, and switches the operands back to $C$.
+A resource candidate produces an appropriate resource state, such as a $\res{TState}$, $\res{BellPair}$, or $\res{CCZState}$, and consumes it for the requested operation.
+The default score used by \texttt{best} mode is intentionally simple:
+\[
+  \mathsf{score}(p) =
+  \mathsf{cycles}(p)
+  + 0.01\,\mathsf{qubitRounds}(p)
+  + 25\,\mathsf{switches}(p)
+  + 35\,\mathsf{factories}(p)
+  + 10^6\,\epsilon(p)
+  + 20\,\mathsf{fail}(p).
+\]
+The point of this formula is not to claim an optimal cost model.
+It gives the prototype a deterministic way to choose among qualitatively different acquisitions while leaving the chosen rule sequence, effect fields, and certificate assumptions available for review.
+
+The hybrid strategy adds one compiler idea that is more useful than a gate-by-gate expansion in the case studies.
+When the planner sees a contiguous block of gates and at least two of them need acquisition, it asks whether a single target code supports the whole block.
+For the current rule library, \code{Tetra15} supports both $\gate{T}$ and $\gate{CNOT}$, while \code{SurfaceD5} supports neither directly.
+The planner can therefore compile the block
+\[
+  \gate{CNOT};\ \gate{T};\ \gate{CNOT};\ \gate{T}
+\]
+as one \texttt{acquire\_region}: switch the involved qubits from \code{SurfaceD5} to \code{Tetra15}, run certified transversal gates, and switch them back.
+The resulting target tree is useful precisely because it is not flattened into an anonymous cost.
+The parent region records the source gate sequence and total effect; the children record each switch, each transversal gate, each layout event, and each certificate level.
+Thus a reviewer can see that the transversal $\gate{T}$ and $\gate{CNOT}$ steps are certified through the \code{Tetra15} rules, while the compact \code{SurfaceD5}$\leftrightarrow$\code{Tetra15} bridge used in this prototype remains \Assumed{}.
+
+Effect composition is implemented directly on the same object that is serialized into the sidecar.
+Sequential composition adds logical-error upper bounds, cycles, qubit-rounds, decoder latency, gate counts, switch counts, and factory counts; it composes acceptance lower bounds multiplicatively; and it takes the maximum of peak-space fields.
+Branch composition takes maxima for upper-bound quantities and minima for lower-bound quantities.
+These operations are intentionally conservative, but their direct implementation has an important engineering advantage: the table entries in the paper, the SMT obligations emitted by the formal toolchain, and the checker's step summaries all refer to the same effect fields.
+There is no separate presentation-only accounting layer.
+
+The checker is a policy interpreter over the generated sidecar.
+It flattens the target tree and checks five classes of obligations.
+First, every code mentioned by a step must be supported by the selected backend topology.
+Second, layout events must match the backend name, topology, capacity, free-qubit accounting, and switch workspace reservation reported by the layout component.
+Third, direct \texttt{apply} steps must have a capability witness in the rule library.
+Fourth, switch steps must name a known switch rule and that rule must be supported by the backend topology.
+Fifth, resource identifiers must be produced before use and consumed at most once.
+The certificate policy is checked at the same time: exploratory mode accepts \Assumed{} steps with warnings, whereas strict mode turns the same warnings into errors.
+This policy is the implementation mechanism behind the paper's proof boundary.
+
+The full-stack runner connects the compiler/checker to independent evidence generators.
+It emits JSON sidecars for every case-study plan, SMT-LIB files for arithmetic bound checks, protocol certificates for selected GF(2) stabilizer and factory facts, decoder reports, geometry reports, artifact hashes, and a Lean build for the small calculus kernel.
+The generated report currently records 53 obligations across code specifications, rule specifications, protocols, decoders, checker results, geometry, and Lean, together with 26 generated artifacts.
+The report also carries an explicit certificate-boundary statement: GF(2), Z3, geometry, decoder-table checks, Python validation, and Lean discharge local obligations, while imported physical theorems and prototype assumptions remain visible dependencies.
+This is the implementation invariant we rely on in the empirical sections: an accepted exploratory plan is auditable, but it is not silently promoted to a strict physics theorem.

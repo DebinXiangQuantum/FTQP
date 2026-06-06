@@ -1,0 +1,84 @@
+\section{Case Study: Acquiring a Surface-Code Kernel}
+\label{sec:case-study}
+
+This case study follows a single \code{SurfaceD5} program through the planner and checker.
+The program is small, but it is chosen to force the compiler to exercise the three acquisition mechanisms that matter for the language design: a $\gate{T}$ must be obtained from a magic-state resource or a code switch, a $\gate{CNOT}$ must be obtained from a Bell-style resource or a switch, and a $\gate{CCZ}$ must be obtained from a three-qubit resource state.
+The source program in \texttt{experiments/run\_mvp.py} starts four logical qubits in \code{SurfaceD5}, runs a surface-code error-correction round, applies a native $\gate{H}$, enters a dense region containing two $\gate{CNOT}$ gates and two $\gate{T}$ gates, runs another correction round, applies an isolated $\gate{CCZ}$ and a final $\gate{T}$, and then uses a measured bit to guard a Clifford correction before the final observable measurement.
+At the source level, this is just a logical kernel with gates, error correction, and classical control.
+At the target level, it is a test of whether the compiler can explain every operation that \code{SurfaceD5} does not provide natively.
+
+\begin{figure}[t]
+\centering
+\begin{tabular}{l}
+\texttt{prepare q0:+; prepare q1:0; prepare q2:0; prepare r:0;}\\
+\texttt{ec(q0, q1, q2, r, decoder=surface\_mwpm);}\\
+\texttt{H(q0); barrier(dense\_acquisition\_region);}\\
+\texttt{CNOT(q0,q1); T(q1); CNOT(q1,q2); T(q2);}\\
+\texttt{ec(q0, q1, q2, decoder=surface\_mwpm);}\\
+\texttt{barrier(isolated\_resource\_gate); CCZ(q0,q1,q2); T(r);}\\
+\texttt{measure m0 = X(q0); if m0 then S(q2); measure out = Z(q2).}
+\end{tabular}
+\caption{The compact \code{SurfaceD5} kernel used in the standalone case study. The interesting part is not the logical algorithm itself, but the fact that \code{SurfaceD5} lacks direct $\gate{T}$, $\gate{CNOT}$, and $\gate{CCZ}$ capabilities in the rule library.}
+\label{fig:surface-kernel}
+\end{figure}
+
+The first planner decision occurs at the dense acquisition barrier in Figure~\ref{fig:surface-kernel}.
+If the planner works gate by gate, it can acquire each $\gate{CNOT}$ through the \texttt{BellTeleportCNOT\_SurfaceD5} resource rule and each $\gate{T}$ through the certified \texttt{Surface15to1TThenInject\_SurfaceD5} factory-and-injection rule.
+This magic-oriented plan has a pleasing local structure: every unsupported operation leaves behind a fresh resource identifier, a factory effect, and a consumption step.
+For the two $\gate{T}$ gates, the sidecar records the instantiated 15-to-1 profile with error $3.5\cdot 10^{-8}$, acceptance $0.985$, 6 cycles, 2775 qubit-rounds, and one factory each.
+For the two $\gate{CNOT}$ gates, the current Bell-mediated profile is marked \Assumed{}, because the exact surface-code resource profile has not yet been imported from a specific physical protocol.
+Exploratory mode keeps this plan available with warnings; strict mode rejects it.
+
+The hybrid planner reads the same dense block differently.
+Because \code{Tetra15} supports both transversal $\gate{CNOT}$ and transversal $\gate{T}$, the block
+\[
+  \gate{CNOT}(q_0,q_1);\quad
+  \gate{T}(q_1);\quad
+  \gate{CNOT}(q_1,q_2);\quad
+  \gate{T}(q_2)
+\]
+can be acquired by changing the code of the participating data once, using the target code's native capabilities, and changing the data back.
+The generated parent step is \texttt{HybridRegionAcquire\_Tetra15}.
+Its children switch $q_0,q_1,q_2$ from \code{SurfaceD5} to \code{Tetra15}, apply certified transversal $\gate{CNOT}$, $\gate{T}$, $\gate{CNOT}$, and $\gate{T}$ rules, and switch the same qubits back to \code{SurfaceD5}.
+The sidecar reports this region as 16 cycles, two switches, zero factories, error $6.5\cdot 10^{-5}$, and acceptance $0.941480149401$.
+Those numbers make the compiler choice legible: the region avoids four separate factories or Bell acquisitions, but it pays for two prototype bridge switches whose assumptions remain explicit.
+
+The layout sidecar explains a second reason why the region is a useful test.
+Before the switch, the three surface-code patches occupy 75 physical qubits on the \texttt{Grid2D\_SurfaceLike} backend.
+Switching them to \code{Tetra15} changes the live footprint to 45 qubits and records a workspace reservation of 93 qubits.
+The event also records that the backend is \texttt{Grid2D\_SurfaceLike} and the topology is \texttt{grid2d}.
+The checker does not prove a detailed lattice-surgery route from this event, but it does check the conservative accounting: the event names the selected backend, uses a supported topology, does not exceed capacity, and has consistent free-qubit arithmetic.
+This is the level of layout evidence the current prototype claims.
+
+After the dense block, the program returns to \code{SurfaceD5} and runs another error-correction round.
+That transition is important for the story because it demonstrates that code-indexed typing is not merely a way to choose a gate implementation.
+The checker sees the output codes of the hybrid region as \code{SurfaceD5}, so the subsequent \texttt{EC\_SurfaceD5} rule and final \texttt{MeasureL\_SurfaceD5} rules are applicable.
+Had the region failed to switch a qubit back, the later surface-code rules would no longer match the type environment.
+The type index therefore records a real protocol state that later steps depend on.
+
+The isolated $\gate{CCZ}$ gate exercises a different path.
+There is no direct \code{SurfaceD5} capability for $\gate{CCZ}$ and the hybrid region has already ended, so the planner emits a resource acquisition using \texttt{CCZFactoryThenInject\_SurfaceD5}.
+The sidecar first produces \texttt{res\_ccz\_1} as a $\res{CCZState}$ and then consumes exactly \texttt{res\_ccz\_1} for $\gate{CCZ}(q_0,q_1,q_2)$.
+The current profile contributes 34 cycles, one factory, 5200 qubit-rounds, acceptance $0.88$, and an \Assumed{} certificate level.
+This is intentionally written as a placeholder in the rule library: it keeps the case study multi-qubit and tests the resource-linearity path, but it is not presented as a paper-backed CCZ factory theorem.
+Strict mode therefore rejects the plan until that placeholder is replaced by a certified rule.
+
+The final $\gate{T}$ on the qubit $r$ shows how a certified resource rule appears beside assumed prototype rules in the same plan.
+The planner chooses the high-fidelity surface-code 15-to-1 factory rule \texttt{Surface15to1TThenInject\_SurfaceD5}.
+The generated children produce \texttt{res\_t\_4} and then consume it for $\gate{T}(r)$.
+The rule is marked \Certified{} and records the instantiated profile at distance 5: output error $35p^3=3.5\cdot 10^{-8}$ for $p=10^{-3}$, 6 cycles, $111d^2=2775$ qubit-rounds, acceptance approximated as $1-15p=0.985$, and peak workspace 775.
+The implementation does not locally reprove the physical surface-code schedule behind these constants; it records that schedule as an imported theorem dependency and checks the local resource and accounting structure around it.
+
+The checker result is best understood as a certificate audit rather than a yes/no benchmark.
+For the hybrid plan, exploratory checking succeeds and reports warnings for the \code{SurfaceD5}$\leftrightarrow$\code{Tetra15} bridge and the placeholder $\res{CCZState}$ factory.
+Strict checking fails because those warnings correspond to \Assumed{} rules.
+For the best-scoring plan under the current cost formula, the planner selects resource acquisitions for the two $\gate{CNOT}$ gates, the two dense-block $\gate{T}$ gates, the $\gate{CCZ}$, and the final $\gate{T}$; it reports 90 cycles, error bound $2.56125\cdot 10^{-4}$, acceptance lower bound $0.83763042984412$, six factories, and no switches.
+The hybrid plan instead reports 76 cycles, error bound $2.71055\cdot 10^{-4}$, acceptance lower bound $0.8160749935007868$, two factories, and two switches.
+Both plans are useful compiler artifacts in exploratory mode.
+Neither is counted as a strict physical certification because both still contain assumed prototype components.
+
+The case study therefore illustrates the central claim of \system.
+A logical program can remain simple, but the generated artifact must not be simple in the same way.
+It must remember why a non-native gate is legal, where a resource came from, where that resource was consumed, how code indices changed across a region, how conservative costs were composed, and which physical facts were locally checked, imported, or assumed.
+The \code{SurfaceD5} kernel is not meant to be a performance benchmark for fault-tolerant architectures.
+It is a compact end-to-end demonstration that the language can turn fault-tolerant acquisition choices into checkable program structure.

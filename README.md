@@ -35,12 +35,18 @@ cipr/
   planner.py     # Logical-to-FT elaboration and acquisition planner
   checker.py     # Capability, certificate, layout, and resource-linearity checker
   stabilizer.py  # GF(2)/Pauli symbolic protocol certificates
+  specs.py       # Machine-readable CodeSpec/RuleSpec contracts
+  protocols.py   # Butt code-switch and 15-to-1 magic certificates
+  decoder.py     # Decoder contracts and syndrome-table checks
+  geometry.py    # Conservative rectangular patch-geometry checks
   theorem.py     # Z3/SMT proof-obligation generation and checking
 
 experiments/
   run_mvp.py     # QEC-flavored case study
+  run_complex_case_study.py # Denser acquisition/branch/resource case study
   verify_mvp.py  # Z3 verifier for generated plans
   verify_protocols.py # Gauge-switch and distillation certificate checks
+  verify_full_stack.py # CodeSpec/RuleSpec/protocol/decoder/geometry end-to-end report
   outputs/       # JSON sidecars and SMT-LIB files
 ```
 
@@ -98,6 +104,13 @@ The current certificate checker uses binary Pauli vectors over GF(2). It verifie
 The Steane/tetrahedral certificate is based on Butt et al. 2024, Sec. IV, Eq. (14)--(16): the two stabilizer codes are treated as two gauge fixings of a common subsystem code. This is an ideal algebraic code-switching check. It does not yet enumerate all circuit-level single faults from the flag-qubit implementation in Sec. V.
 
 The same module also contains a small magic-distillation skeleton checker: accepted low-weight Pauli input errors must not implement the declared output logical error. Real 15-to-1 or zero-level distillation certificates can be added by importing the exact check matrix/circuit from the target paper.
+
+The extended protocol suite in `cipr/protocols.py` now adds:
+
+- a Butt 2024 Steane/tetrahedral code-switch certificate with a machine-checked GF(2) gauge-fixing core, Table-I resource-count checks, and an explicit imported theorem dependency for the complete flag-circuit single-fault-tolerance proof;
+- a Reed-Muller / triorthogonal 15-to-1 magic-state distillation certificate that machine-checks triorthogonality, detects all weight-1 and weight-2 input `Z` errors, and confirms the leading accepted weight-3 logical-error count `35`.
+
+The physical surface-code implementation profile for the 15-to-1 construction remains an imported theorem dependency from Wan 2024 because the architecture-level six-cycle / `111 d^2` profile is not derivable from the outer-code matrix alone.
 
 ## Backend And Layout
 
@@ -182,6 +195,37 @@ experiments/outputs/smt/*.smt2
 ```
 
 The SMT-LIB files assert the negation of each bound. A solver answer of `unsat` means the corresponding conservative-bound theorem holds.
+
+## Run Full-Stack Verification
+
+```bash
+uv run python experiments/run_mvp.py
+uv run python experiments/run_complex_case_study.py
+uv run python experiments/verify_protocols.py
+uv run python experiments/verify_mvp.py
+uv run python experiments/verify_full_stack.py
+cd formal && lake build
+```
+
+This writes:
+
+```text
+experiments/outputs/full_stack_report.json
+```
+
+The full-stack report combines:
+
+- `CodeSpec` checks for Steane, SurfaceD5, and Reed-Muller 15-to-1 signatures;
+- `RuleSpec` records for code switching and magic-state injection;
+- protocol certificates;
+- decoder contracts;
+- rectangular patch-geometry checks for generated plans;
+- Z3 resource/effect obligations;
+- Lean core safety proofs;
+- stable proof-obligation ids;
+- SHA-256 hashes for generated sidecars and SMT artifacts.
+
+Imported theorem dependencies are explicit in the JSON report; they are not silently treated as machine-checked local proofs.
 
 ## Current Limitations
 

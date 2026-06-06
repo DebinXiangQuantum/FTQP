@@ -1,0 +1,81 @@
+\section{Typing and Metatheory}
+
+\subsection{The Audit Judgment}
+
+The core target judgment is:
+\[
+  \judgment.
+\]
+This judgment is best read as an audit contract for the generated sidecar.
+Under capability context $\mathcal{K}$, quantum context $\Gamma$, and linear resource context $\Delta$, target program $t$ transforms the contexts to $\Gamma'$ and $\Delta'$ and reports effect $E$.
+For the running example, the judgment says that the checker can follow each qubit as it leaves \code{SurfaceD5}, enters \code{Tetra15} for a hybrid region, returns to \code{SurfaceD5}, and consumes resource identifiers exactly once along the way.
+The judgment is parameterized by a certificate policy $\pi$, so the same syntactic plan may be accepted in exploratory mode and rejected in strict mode if it uses \Assumed{} rules.
+
+Figure~\ref{fig:typing} shows the rules that matter most for the story.
+The direct rule captures why $\gate{H}$ on \code{SurfaceD5} is routine but direct $\gate{CNOT}$ is rejected: the current code index must provide a capability witness.
+The switch rule captures why a dense region can temporarily use another code: the type of the qubit changes from $Q[C_1,d,\State]$ to $Q[C_2,d',\State]$.
+The produce and consume rules capture why a magic state behaves linearly: once the identifier leaves $\Delta$, a second consume step cannot typecheck.
+
+\begin{figure}[t]
+\[
+\frac{
+  q:Q[C,d,\mu]\in\Gamma \quad \Cap(C,g)\in\mathcal{K} \quad \pi(\ell)=\mathsf{true}
+}{
+  \mathcal{K};\Gamma;\Delta \vdash \mathsf{direct}\ g\ q : \Gamma;\Delta \;!\; E_g
+}
+\]
+\[
+\frac{
+  q:Q[C_1,d,\State]\in\Gamma \quad \Switch(C_1,C_2)\in\mathcal{K} \quad \pi(\ell)=\mathsf{true}
+}{
+  \mathcal{K};\Gamma;\Delta \vdash \mathsf{switch}\ q:C_1\to C_2 :
+  \Gamma[q\mapsto Q[C_2,d',\State]];\Delta \;!\; E_{\mathsf{sw}}
+}
+\]
+\[
+\frac{
+  r\notin\mathrm{dom}(\Delta) \quad \Factory(R)\in\mathcal{K}
+}{
+  \mathcal{K};\Gamma;\Delta \vdash \mathsf{produce}\ r:R :
+  \Gamma;\Delta,r:R \;!\; E_{\mathsf{prod}}
+}
+\qquad
+\frac{
+  r:R\in\Delta
+}{
+  \mathcal{K};\Gamma;\Delta \vdash \mathsf{consume}\ r\ \mathsf{for}\ g\ q :
+  \Gamma;\Delta-r \;!\; E_{\mathsf{use}}
+}
+\]
+\caption{Representative typing rules for capability use, code switching, and linear probabilistic resources. The rules are chosen because each corresponds to a concrete checker behavior in the case study.}
+\label{fig:typing}
+\end{figure}
+
+\subsection{What Is Mechanized Today}
+
+The Lean development mechanizes the small core needed to make these checker invariants precise.
+It defines codes, gates, modes, resource kinds, certificate levels, policies, primitive atoms, resource contexts, effects, and typed programs.
+The most important theorem for the running example is the unsupported-direct-gate rejection theorem: if the capability predicate for $(C,g)$ is false, there is no well-typed direct step for $g$ on code $C$.
+This theorem is the formal counterpart of the negative test that rejects direct $\gate{CNOT}$ on \code{SurfaceD5}.
+
+The second important theorem family concerns resource linearity.
+Lean proves that after a resource has been consumed, consuming the same identifier again is impossible in the resulting resource context.
+The implementation mirrors this theorem with produced and consumed sets in the checker.
+The point is not that the proof is mathematically deep; the point is that a common compiler error has a direct expression in the calculus, the checker, and the test suite.
+
+The third theorem family concerns certificates and effects.
+Lean proves that typed programs contain only certificate levels allowed by the selected policy, and that sequential and branch effect composition conservatively bounds component effects.
+For the case study, this means a strict run rejects plans that depend on prototype bridge rules, and an exploratory run can still report the same plan with visible warnings.
+It also means the total effect summary is not a detached table entry; it is the result of applying the same composition operators used in the formal core.
+
+\subsection{Conditional Soundness Boundary}
+
+The intended soundness statement has a local layer and a physical layer.
+The local layer says that if $\mathcal{K};\Gamma;\Delta\vdash t:\Gamma';\Delta'!E$ under a strict policy, then every acquisition atom in $t$ is justified by an allowed rule, every linear resource is used consistently with $\Delta$, and the reported effect is a conservative composition of rule effects.
+This layer is represented today by Lean, Z3, Python checker obligations, and geometry checks.
+
+The physical layer is conditional on the imported theorem dependencies attached to \Certified{} rules.
+For example, the Steane/tetrahedral code-switch certificate locally checks the GF(2) algebraic gauge-fixing core and records the cited flag-circuit single-fault-tolerance theorem as an imported dependency.
+Similarly, the Reed--Muller 15-to-1 certificate locally checks triorthogonality and low-weight $Z$-error detection, while the constant-time surface-code implementation profile is imported from an architecture-level result.
+The paper's claim is therefore not that \system proves every physical gadget from first principles.
+The claim is that, once local and imported rule contracts are made explicit, the calculus composes them without hiding illegal gates, duplicated resources, backend mismatches, or assumption boundaries.

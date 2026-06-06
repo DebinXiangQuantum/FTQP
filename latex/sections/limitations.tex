@@ -1,0 +1,20 @@
+\section{Limitations and Future Work}
+
+The current draft has a deliberately narrow soundness boundary.
+The Lean development mechanizes a small core of capability, certificate, resource, and effect properties, but not yet a full source-to-target elaboration theorem.
+The Python checker validates generated plans against the current sidecar format, but the implementation does not yet extract a complete machine-checkable typing derivation for every accepted plan.
+Closing this gap is the most important next step for a POPL submission.
+
+Several rules in the current case studies are marked \Assumed{}.
+These rules are useful because they let the compiler exercise end-to-end acquisition strategies that connect otherwise paper-backed pieces, but they are not physics claims.
+The paper therefore reports exploratory results with warnings and treats strict mode as the proof-facing policy.
+Before submission, prototype bridge rules should either be replaced by literature-backed certificates or moved into a clearly separated exploratory appendix.
+
+The layout model is also conservative.
+The geometry checker verifies final rectangular patch embeddings and workspace reservations on a fixed backend grid, but it does not model complete patch routing, lattice-surgery boundary compatibility, or factory scheduling optimality.
+This limitation is acceptable for the current language claim because topology and workspace violations are already visible to the checker.
+It is not sufficient for claiming a production-quality FTQC layout compiler.
+
+The benchmark set is small.
+The case studies validate the calculus and checker interface, but they do not compare against production FTQC compilers or a broad suite of fault-tolerant workloads.
+Future work should add larger logical programs, more backend profiles, stronger acquisition baselines, and ablations that isolate the effect of hybrid-region planning, certificate policies, and resource-factory choices.

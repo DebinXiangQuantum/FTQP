@@ -1,0 +1,10 @@
+\section{Conclusion}
+
+\system turns fault-tolerant acquisition decisions into typed, auditable program structure.
+The key idea is to keep the code index, linear resource context, conservative effect summary, backend side conditions, and certificate level visible while a logical program is elaborated into an executable acquisition plan.
+In the running surface-code example, this visibility is what distinguishes a legal direct $\gate{H}$, an acquired $\gate{T}$, a hybrid switched region, and an illegal direct $\gate{CNOT}$.
+
+The current implementation demonstrates the interface end to end across planning, checking, SMT obligations, protocol certificates, decoder contracts, geometry checks, and a Lean proof kernel.
+The evidence is intentionally conditional: local algebraic and software-level obligations are checked locally, while complete physical protocol claims remain imported theorem dependencies.
+This boundary is the paper's main programming-language message.
+Certified local FTQC rules can be composed through a small, code-indexed calculus that makes legality, resources, effects, layout constraints, and proof assumptions explicit.

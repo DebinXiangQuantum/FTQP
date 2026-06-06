@@ -1,0 +1,90 @@
+\section{Core Language}
+
+\subsection{Codes, Capabilities, and Certificates}
+
+\system separates the code a value currently inhabits from the rules that can act on that code.
+In the running example, the four prepared data qubits begin with type $Q[\code{SurfaceD5},5,\State]$.
+This type is a compact way to say three things the checker needs later: the qubit is encoded in the surface profile, the rule library treats it as distance five, and later operations may rely on state-level correctness rather than only final observable correctness.
+The type is not a physical simulator state; it is the static handle that lets the compiler ask whether a requested operation is a direct capability, a switch target, or a resource-acquisition goal.
+
+A code specification records the information needed to answer those questions.
+The current prototype contains \code{SurfaceD5}, \code{Steane3}, \code{Tetra15}, and a negative-control \code{QLDPC12} profile.
+\code{SurfaceD5} supports direct $\gate{H}$ and $\gate{S}$ in the small rule library; \code{Steane3} supports transversal Clifford gates; \code{Tetra15} supports transversal $\gate{T}$ and $\gate{CNOT}$; and \code{QLDPC12} requires long-range topology.
+The last profile is deliberately included so that the checker has a concrete backend-incompatibility case to reject.
+
+The capability context $\mathcal{K}$ collects the rule facts available to a compilation run:
+\[
+\begin{array}{rcl}
+\mathcal{K} &::=& \Cap(C,g) \mid \Switch(C_1,C_2) \mid \Factory(R) \mid \Backend(B) \mid \cdots
+\end{array}
+\]
+The interesting point is that these facts are not bare booleans.
+Each fact carries a certificate level $\ell\in\{\Checked,\Certified,\Assumed\}$.
+\Checked{} rules are discharged by local checkers or simple implementation invariants.
+\Certified{} rules combine local checks with an explicit imported theorem from a cited protocol.
+\Assumed{} rules are prototype glue and are rejected by the strict theorem policy.
+This is the mechanism that prevents the paper from confusing a useful compiler experiment with a new physical proof.
+
+\subsection{Source and Target Syntax}
+
+The source language is intentionally ordinary because users should describe logical intent rather than acquisition mechanics.
+It includes preparation, logical gates, error-correction rounds, logical measurement, sequencing, and classical branching:
+\[
+\begin{array}{rcl}
+e &::=& \mathsf{prepare}\ q\ s
+  \mid \mathsf{gate}\ g\ \vec q
+  \mid \mathsf{ec}\ \vec q\ d
+  \mid \mathsf{measure}\ b\ O\ \vec q \\
+  && \mid\ \mathsf{if}\ b\ \mathsf{then}\ e_1\ \mathsf{else}\ e_2
+  \mid e_1;e_2.
+\end{array}
+\]
+In the case study, this language is represented by \texttt{LogicalOp.prepare}, \texttt{LogicalOp.apply}, \texttt{LogicalOp.ec}, \texttt{LogicalOp.measure}, and \texttt{LogicalOp.branch}.
+The source contains $\gate{T}$ and $\gate{CNOT}$ as logical gates even though the initial code does not directly support them.
+That is the point of elaboration: unsupported source gates become acquisition obligations rather than immediate type errors.
+
+The target language is smaller and more explicit.
+It exposes the atoms that a checker can audit:
+\[
+\begin{array}{rcl}
+a &::=& \mathsf{alloc}\ q:C
+  \mid \mathsf{native}\ g\ \vec q
+  \mid \mathsf{transv}\ g\ \vec q
+  \mid \mathsf{switch}\ q:C_1\to C_2 \\
+  && \mid\ \mathsf{produce}\ r:R
+  \mid \mathsf{consume}\ r\ \mathsf{for}\ g\ \vec q
+  \mid \mathsf{measureL}\ b\ O\ \vec q \\
+  && \mid\ \mathsf{decode}\ s
+  \mid \mathsf{frame}\ f
+  \mid \mathsf{postselect}\ p
+  \mid \mathsf{reset\_clean}\ q, \\
+t &::=& a \mid t_1;t_2 \mid \mathsf{if}\ b\ \mathsf{then}\ t_1\ \mathsf{else}\ t_2.
+\end{array}
+\]
+The target has no unrestricted $\mathsf{apply}\ U$ primitive.
+That omission is a design constraint, not an aesthetic preference.
+If arbitrary unitaries could appear as primitive atoms, a compiler could hide an entire code-switching or factory protocol behind one step, and the checker would lose the ability to inspect capability, resource, effect, and certificate evidence.
+
+\subsection{Types, Resources, and Effects}
+
+The encoded quantum type $Q[C,d,\mu]$ is the thread that connects the paper calculus to the implementation.
+The code index $C$ changes when the planner inserts a switch, stays fixed for direct and resource-injection gates, and must agree across branches before the program continues.
+The mode $\mu ::= \State \mid \Observable$ distinguishes state-level values from values whose guarantee is only about final measurement distributions.
+The implementation already carries this field in \texttt{QType}; the calculus uses it to state the intended discipline that observable-level outputs should not be fed to rules requiring state-level inputs.
+
+Probabilistic resources live in a separate context because they are physical artifacts, not reusable descriptions:
+\[
+R ::= \res{TState}[\epsilon] \mid \res{CCZState}[\epsilon] \mid \res{BellPair}[\epsilon] \mid \res{AuxState}[C,\epsilon].
+\]
+In the implementation, a resource acquisition step places a fresh identifier such as \texttt{res\_t\_0} in the sidecar, and the corresponding consume step names the same identifier.
+The checker maintains produced and consumed sets while flattening the plan.
+This small piece of bookkeeping is the operational version of the linear resource context $\Delta$.
+
+Effects summarize what a plan promises conservatively:
+\[
+E = \langle \epsilon, f, a, s, \tau, \rho, n_{\mathsf{sw}}, n_{\mathsf{fac}}, \ldots\rangle.
+\]
+Here $\epsilon$ is a logical-error upper bound, $f$ is a failure upper bound, $a$ is an acceptance lower bound, $s$ is peak space, $\tau$ is cycle count, $\rho$ is qubit-round count, and the remaining fields count switches, factories, measurements, resets, multi-qubit gates, decoder latency, certificates, assumptions, and rule identifiers.
+Sequential composition adds error, cycles, qubit-rounds, and counts, multiplies acceptance lower bounds, and takes a maximum for peak space.
+Branch composition takes conservative branchwise bounds.
+The effect algebra is deliberately simple because it must be checked on every generated sidecar; its value is that the numbers in Section~\ref{sec:case-study} are produced by the same composition discipline used by the checker.

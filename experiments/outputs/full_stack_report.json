@@ -1,0 +1,3127 @@
+{
+  "artifacts": [
+    {
+      "bytes": 8279,
+      "path": "experiments/outputs/verification_report.json",
+      "sha256": "438736a2dbae49f2a0d13710d1285aa99c3814a8d5fa6e72e8fe2834b9789574"
+    },
+    {
+      "bytes": 12027,
+      "path": "experiments/outputs/protocol_certificates.json",
+      "sha256": "91a3d548653aefa88d0d82da2dfb5fae75ab32834da17a6a8b03eec8c07b1556"
+    },
+    {
+      "bytes": 96557,
+      "path": "experiments/outputs/full_stack_report.json",
+      "sha256": "022595fc2133cfe355a1cf2a2ea0d8d3afde092d5350897aa82b3d0a21c8856d"
+    },
+    {
+      "bytes": 61705,
+      "path": "experiments/outputs/case_study_best.json",
+      "sha256": "e64bc221094ff8726087326b8034befc67cf77abc3dfa9b8163c9c1db05719f0"
+    },
+    {
+      "bytes": 121724,
+      "path": "experiments/outputs/case_study_complex_best.json",
+      "sha256": "a0124a42dfb334ea0065a8560d5c44f7c7d7811efba6cc46dfcfcef8024780b6"
+    },
+    {
+      "bytes": 100770,
+      "path": "experiments/outputs/case_study_complex_hybrid.json",
+      "sha256": "208d88693cf47e876ed5343369dc09ed25ddf882c69365b5bb0ef1c8164e863c"
+    },
+    {
+      "bytes": 121802,
+      "path": "experiments/outputs/case_study_complex_magic_only.json",
+      "sha256": "8cebd2822930426abcc2da9d4002653579e12bad54b03601a18343a6f1d4838b"
+    },
+    {
+      "bytes": 132221,
+      "path": "experiments/outputs/case_study_complex_random_seed23.json",
+      "sha256": "fdceba4713033f657e9d57cbcbc02bae3f1bf763f5db0230b0a12dd5b6d329db"
+    },
+    {
+      "bytes": 159435,
+      "path": "experiments/outputs/case_study_complex_switch_only.json",
+      "sha256": "426e2f724c93c6a14333733714c11508b18b7973cb0156fcfb4632c8052caf7a"
+    },
+    {
+      "bytes": 54470,
+      "path": "experiments/outputs/case_study_hybrid.json",
+      "sha256": "f61e64bf50d400e51335dd52c0c78e9da98ebc15fc9d31f71057884b840ed52b"
+    },
+    {
+      "bytes": 61747,
+      "path": "experiments/outputs/case_study_magic_only.json",
+      "sha256": "b2fa5c112b7563eb16854cd41c754f2f869e9673d7bfee5151eb188fc424c00f"
+    },
+    {
+      "bytes": 62000,
+      "path": "experiments/outputs/case_study_random_seed17.json",
+      "sha256": "e091875b78a54cd2d9892f6f5c33820c5ac957871f446f23011c8e0a7e29a819"
+    },
+    {
+      "bytes": 68646,
+      "path": "experiments/outputs/case_study_random_seed7.json",
+      "sha256": "f6d1e92f5015e9d73fe72ae1f8cbe9663191f15ae46ffaaf2630df5170b58a33"
+    },
+    {
+      "bytes": 7197,
+      "path": "experiments/outputs/case_study_summary.json",
+      "sha256": "0ab1297bee2bf891ac98182e3b2fe2f76f898db693841ea4d0beeea196c0e2f7"
+    },
+    {
+      "bytes": 78729,
+      "path": "experiments/outputs/case_study_switch_only.json",
+      "sha256": "99e075caac3085bb2dd03ba72aa98f57f7fd9fa7db85018100c803d6a6b835e2"
+    },
+    {
+      "bytes": 1606,
+      "path": "experiments/outputs/smt/case_study_best.smt2",
+      "sha256": "08c7464647a881e2c9125f8bfc09f36e2e170e4bc9568d041d0381b281cf48dd"
+    },
+    {
+      "bytes": 1923,
+      "path": "experiments/outputs/smt/case_study_complex_best.smt2",
+      "sha256": "f043e310cb3e23c7165cb871e8788713361ef90df648eece301eb99c41307d6c"
+    },
+    {
+      "bytes": 1766,
+      "path": "experiments/outputs/smt/case_study_complex_hybrid.smt2",
+      "sha256": "7585ce7d27b9927b6fcd9589931333f5c18c6da6e5cbcabaa8ca40c3e0f969ae"
+    },
+    {
+      "bytes": 1929,
+      "path": "experiments/outputs/smt/case_study_complex_magic_only.smt2",
+      "sha256": "ce12add4550b86c3abdeabdaf8216eb94cd9a9a2e9021f60cec45d9dd11e68fd"
+    },
+    {
+      "bytes": 2019,
+      "path": "experiments/outputs/smt/case_study_complex_random_seed23.smt2",
+      "sha256": "5dbae600fbea6d96dc8bcc25bcde63f08c87176cedb75e78e315d56910fc37ee"
+    },
+    {
+      "bytes": 2263,
+      "path": "experiments/outputs/smt/case_study_complex_switch_only.smt2",
+      "sha256": "c7a81294645bd36e26476edb956245df8f3571471cadf1d0d2522782c91015ba"
+    },
+    {
+      "bytes": 1558,
+      "path": "experiments/outputs/smt/case_study_hybrid.smt2",
+      "sha256": "d55ff25d9e80a5fb3d223f5a5ab092e0f8277f8c2536012b848dd58286bb4033"
+    },
+    {
+      "bytes": 1612,
+      "path": "experiments/outputs/smt/case_study_magic_only.smt2",
+      "sha256": "9895f12b00f50c92cbd31a5dcce07cb156c6abaecfd5829114f79d5e4d820a99"
+    },
+    {
+      "bytes": 1575,
+      "path": "experiments/outputs/smt/case_study_random_seed17.smt2",
+      "sha256": "1112c861600c272a2fc5834df101ddf86bba6004bfc71847f6fe3a112a980f7b"
+    },
+    {
+      "bytes": 1687,
+      "path": "experiments/outputs/smt/case_study_random_seed7.smt2",
+      "sha256": "2cd7570ceae9b767985f002bbf07bb8160d0f3e829e595cfa1eeefcaa424a102"
+    },
+    {
+      "bytes": 1744,
+      "path": "experiments/outputs/smt/case_study_switch_only.smt2",
+      "sha256": "7641dfab4039ad2fef8a5fb1c253d5cf67227d06919ca14e78749eaa9fd8901a"
+    }
+  ],
+  "certificate_boundary": "Machine-checked obligations are discharged by GF(2), Z3, geometry, decoder-table checks, Python rule validation, or Lean. Imported physical theorems remain explicit dependencies and are never counted as local proofs.",
+  "generated_at": "2026-06-04T04:17:41.498541+00:00",
+  "obligations": [
+    {
+      "category": "code_specs",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_paulis_have_expected_length",
+          "stabilizers_commute",
+          "stabilizers_preserve_logicals",
+          "logical_x_and_z_anticommute",
+          "external_code_theorem_recorded"
+        ],
+        "failures": []
+      },
+      "id": "code_specs.0ac781c5ff81",
+      "prover": "GF(2)-CodeSpec",
+      "status": "ok",
+      "subject": "CodeSpec:SurfaceD5"
+    },
+    {
+      "category": "code_specs",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_paulis_have_expected_length",
+          "stabilizers_commute",
+          "stabilizers_preserve_logicals",
+          "logical_x_and_z_anticommute",
+          "external_code_theorem_recorded"
+        ],
+        "failures": []
+      },
+      "id": "code_specs.bd35655515be",
+      "prover": "GF(2)-CodeSpec",
+      "status": "ok",
+      "subject": "CodeSpec:Steane3"
+    },
+    {
+      "category": "code_specs",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_paulis_have_expected_length",
+          "stabilizers_commute",
+          "stabilizers_preserve_logicals",
+          "logical_x_and_z_anticommute",
+          "external_code_theorem_recorded"
+        ],
+        "failures": []
+      },
+      "id": "code_specs.bf2adabd878c",
+      "prover": "GF(2)-CodeSpec",
+      "status": "ok",
+      "subject": "CodeSpec:RM15Triorthogonal"
+    },
+    {
+      "category": "rule_specs",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "pre_and_post_codes_known",
+          "proof_obligations_recorded",
+          "effect_fields_nonnegative"
+        ],
+        "failures": []
+      },
+      "id": "rule_specs.3f1c27fc6c83",
+      "prover": "RuleSpec-validator",
+      "status": "ok",
+      "subject": "RuleSpec:Switch_Steane3_to_Tetra15"
+    },
+    {
+      "category": "rule_specs",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "pre_and_post_codes_known",
+          "proof_obligations_recorded",
+          "effect_fields_nonnegative"
+        ],
+        "failures": []
+      },
+      "id": "rule_specs.cd930eacaf33",
+      "prover": "RuleSpec-validator",
+      "status": "ok",
+      "subject": "RuleSpec:Surface15to1TThenInject_SurfaceD5"
+    },
+    {
+      "category": "protocols",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_paulis_have_expected_length",
+          "logical_x_and_z_anticommute",
+          "subsystem_stabilizers_commute",
+          "target_stabilizers_commute",
+          "stabilizers_preserve_common_logicals",
+          "gauge_corrections_preserve_logicals",
+          "gauge_corrections_span_target_syndromes",
+          "butt2024_algebraic_gauge_fixing_core_machine_checked",
+          "table_i_switch_qubit_count_recorded",
+          "table_i_steane_to_tetra_cnot_count_recorded",
+          "table_i_tetra_to_steane_cnot_count_recorded"
+        ],
+        "failures": []
+      },
+      "id": "protocols.5eb4fb293400",
+      "prover": "GF(2)/triorthogonal-checker",
+      "status": "ok",
+      "subject": "Butt2024_Steane_Tetra15_FullSwitchCertificate"
+    },
+    {
+      "category": "imported_theorem",
+      "dependencies": [
+        "Butt2024_Steane_Tetra15_FullSwitchCertificate"
+      ],
+      "details": {
+        "claim": "The cited paper constructs deterministic distance-3 2D/3D color-code switching protocols with flag-qubit fault-tolerant circuits; the MVP imports the complete flag-fault enumeration as a theorem rather than re-enumerating every circuit fault locally.",
+        "locator": "Sec. IV--V, Table I, and flag-qubit switching circuits",
+        "name": "Butt2024 flag-circuit single-fault-tolerance theorem",
+        "source": {
+          "citation": "Butt et al., Fault-Tolerant Code-Switching Protocols for Near-Term Quantum Processors, PRX Quantum 5, 020345 (2024)",
+          "key": "8QS8EFNR",
+          "locator": "pp. 020345-2--020345-4, Fig. 1--3; p. 020345-4, Table I",
+          "note": "2D triangular/Steane code has transversal H,S,CNOT; tetrahedral [[15,1,3]] has transversal T,CNOT; Table I reports switch building-block qubits/CNOT counts.",
+          "url": "https://doi.org/10.1103/PRXQuantum.5.020345"
+        }
+      },
+      "id": "imported.9d22b63327df",
+      "prover": "external-literature",
+      "status": "imported",
+      "subject": "Butt2024 flag-circuit single-fault-tolerance theorem"
+    },
+    {
+      "category": "protocols",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "triorthogonal_matrix_has_one_odd_logical_row_and_four_even_check_rows",
+          "all_pair_overlaps_even",
+          "all_triple_overlaps_even",
+          "all_weight_1_and_2_input_z_errors_are_detected",
+          "leading_weight_3_logical_error_count_is_35"
+        ],
+        "failures": []
+      },
+      "id": "protocols.db866c8386f6",
+      "prover": "GF(2)/triorthogonal-checker",
+      "status": "ok",
+      "subject": "ReedMuller15To1_MagicDistillation"
+    },
+    {
+      "category": "imported_theorem",
+      "dependencies": [
+        "ReedMuller15To1_MagicDistillation"
+      ],
+      "details": {
+        "claim": "The constant-time surface-code implementation records 35 p^3 leading suppression, six code cycles, and 111 d^2 qubit-cycle profile for the 15-to-1 construction used by the rule library.",
+        "locator": "pp. 1--2 and p. 7",
+        "name": "Wan2024 constant-time 15-to-1 surface-code implementation",
+        "source": {
+          "citation": "Wan, Constant-time magic state distillation, arXiv:2410.17992 (2024)",
+          "key": "WV8K4EP7",
+          "locator": "pp. 1--2 for O(1) code cycles and 35p^3/7p^3; p. 7 for 111 d^2 and 47 d^2 qubit-cycle costs",
+          "note": "15-to-1 surface-code MSD has leading-order 35 p^3 suppression, O(1) code cycles, 6 code cycles, and 111 d^2 qubit-cycles excluding physical ancilla/injection cost.",
+          "url": "https://arxiv.org/abs/2410.17992"
+        }
+      },
+      "id": "imported.c784348f35ef",
+      "prover": "external-literature",
+      "status": "imported",
+      "subject": "Wan2024 constant-time 15-to-1 surface-code implementation"
+    },
+    {
+      "category": "decoders",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_single_qubit_x_and_z_errors_have_unique_nonzero_syndromes",
+          "single_qubit_y_errors_decompose_into_unique_x_and_z_syndromes",
+          "no_nontrivial_weight_1_css_error_is_undetected"
+        ],
+        "failures": []
+      },
+      "id": "decoders.e11dd8d91640",
+      "prover": "decoder-contract-checker",
+      "status": "ok",
+      "subject": "Steane3_SyndromeTableDecoder"
+    },
+    {
+      "category": "imported_theorem",
+      "dependencies": [
+        "Steane3_SyndromeTableDecoder"
+      ],
+      "details": {
+        "claim": "The Steane/2D color-code distance-3 instance corrects arbitrary single-qubit Pauli errors under a syndrome-table decoder.",
+        "locator": "pp. 020345-2--020345-4",
+        "name": "Steane3 distance-3 decoder contract",
+        "source": {
+          "citation": "Butt et al., Fault-Tolerant Code-Switching Protocols for Near-Term Quantum Processors, PRX Quantum 5, 020345 (2024)",
+          "key": "8QS8EFNR",
+          "locator": "pp. 020345-2--020345-4, Fig. 1--3; p. 020345-4, Table I",
+          "note": "2D triangular/Steane code has transversal H,S,CNOT; tetrahedral [[15,1,3]] has transversal T,CNOT; Table I reports switch building-block qubits/CNOT counts.",
+          "url": "https://doi.org/10.1103/PRXQuantum.5.020345"
+        }
+      },
+      "id": "imported.672035b72fca",
+      "prover": "external-literature",
+      "status": "imported",
+      "subject": "Steane3 distance-3 decoder contract"
+    },
+    {
+      "category": "decoders",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "distance_5_contract_records_correction_radius_2",
+          "decoder_latency_bound_recorded"
+        ],
+        "failures": []
+      },
+      "id": "decoders.03329677f889",
+      "prover": "decoder-contract-checker",
+      "status": "ok",
+      "subject": "SurfaceD5_ImportedDecoderContract"
+    },
+    {
+      "category": "imported_theorem",
+      "dependencies": [
+        "SurfaceD5_ImportedDecoderContract"
+      ],
+      "details": {
+        "claim": "The stack treats the distance-5 surface-code QEC rounds as an imported decoder contract with correction radius t=2 and the rule-library latency bound; exact MWPM implementation details are outside this Python MVP.",
+        "locator": "pp. 020356-7--020356-10",
+        "name": "SurfaceD5 imported MWPM-style decoder contract",
+        "source": {
+          "citation": "Itogawa et al., Efficient Magic State Distillation by Zero-Level Distillation, PRX Quantum 6, 020356 (2025)",
+          "key": "ITFGJ4YN",
+          "locator": "pp. 020356-1--020356-2 abstract/introduction; p. 020356-5; pp. 020356-7--020356-10, Fig. 11--16",
+          "note": "Zero-level distillation uses Steane-code verification and teleportation/conversion to surface code; reports p_L approximately 100 p^2, physical depth 25 for rotated-surface teleportation, and success about 70% at p=1e-3 / 95% at p=1e-4.",
+          "url": "https://doi.org/10.1103/thxx-njr6"
+        }
+      },
+      "id": "imported.ad4fa04751c9",
+      "prover": "external-literature",
+      "status": "imported",
+      "subject": "SurfaceD5 imported MWPM-style decoder contract"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.8a001b9b7555",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_best"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.bfcdec09c724",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_complex_best"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.4176851ea97f",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_complex_hybrid"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.5fd38fc1ad72",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_complex_magic_only"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.829dcc4525ae",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_complex_random_seed23"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.d2866e2c7766",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_complex_switch_only"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.3242b63b5d91",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_hybrid"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.f58f300d8cfd",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_magic_only"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.cf925205848e",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_random_seed17"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.f9c44ea732f4",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_random_seed7"
+    },
+    {
+      "category": "checker",
+      "dependencies": [],
+      "details": {
+        "checked": [],
+        "failures": []
+      },
+      "id": "checker.224cb37eea8a",
+      "prover": "FTStep-checker",
+      "status": "ok",
+      "subject": "Checker:case_study_switch_only"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.6636e997c5c6",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_best"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.4fc5d8aec2be",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_complex_best"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.2e6ad3409f1a",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_complex_hybrid"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.3a6a0f4b01fc",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_complex_magic_only"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.534d24c838ec",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_complex_random_seed23"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.f33663971d59",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_complex_switch_only"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.2fdc4eab16cc",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_hybrid"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.1a36542b86c0",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_magic_only"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.ed27ff464fad",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_random_seed17"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.61a8d4d0e226",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_random_seed7"
+    },
+    {
+      "category": "compile_results",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": []
+      },
+      "id": "compile_results.a0f38d50261c",
+      "prover": "Z3/SMT",
+      "status": "ok",
+      "subject": "case_study_switch_only"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.07dcfb41ea1e",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_best"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.dcb906361bd1",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_complex_best"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.8a0a978e415e",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_complex_hybrid"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.d01bdaf7bc6e",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_complex_magic_only"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.4ee02fc8eaa4",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_complex_random_seed23"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.b54be7fb6c77",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_complex_switch_only"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.dd44786b8237",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_hybrid"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.60097b4d3450",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_magic_only"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.1c6e2ed58364",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_random_seed17"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.648f4393d5e0",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_random_seed7"
+    },
+    {
+      "category": "geometry",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "failures": []
+      },
+      "id": "geometry.458a8ec9aba4",
+      "prover": "patch-geometry-checker",
+      "status": "ok",
+      "subject": "Geometry:case_study_switch_only"
+    },
+    {
+      "category": "mechanized_proof",
+      "dependencies": [],
+      "details": {
+        "checked": [
+          "lake_build"
+        ]
+      },
+      "id": "lean.core",
+      "prover": "Lean4/lake",
+      "status": "ok",
+      "subject": "FTQP.Core"
+    },
+    {
+      "category": "rule_obligation",
+      "dependencies": [
+        "Switch_Steane3_to_Tetra15"
+      ],
+      "details": {},
+      "id": "rule_obligation.a520810a93fd",
+      "prover": "imported_theorem",
+      "status": "imported",
+      "subject": "Switch_Steane3_to_Tetra15:algebraic_gauge_fixing_core"
+    },
+    {
+      "category": "rule_obligation",
+      "dependencies": [
+        "Switch_Steane3_to_Tetra15"
+      ],
+      "details": {},
+      "id": "rule_obligation.962402f1b876",
+      "prover": "imported_theorem",
+      "status": "imported",
+      "subject": "Switch_Steane3_to_Tetra15:flag_fault_tolerance_imported_theorem"
+    },
+    {
+      "category": "rule_obligation",
+      "dependencies": [
+        "Switch_Steane3_to_Tetra15"
+      ],
+      "details": {},
+      "id": "rule_obligation.66e890b59d98",
+      "prover": "imported_theorem",
+      "status": "imported",
+      "subject": "Switch_Steane3_to_Tetra15:resource_table_match"
+    },
+    {
+      "category": "rule_obligation",
+      "dependencies": [
+        "Surface15to1TThenInject_SurfaceD5"
+      ],
+      "details": {},
+      "id": "rule_obligation.ba861bce2749",
+      "prover": "machine_checked",
+      "status": "ok",
+      "subject": "Surface15to1TThenInject_SurfaceD5:triorthogonal_matrix_valid"
+    },
+    {
+      "category": "rule_obligation",
+      "dependencies": [
+        "Surface15to1TThenInject_SurfaceD5"
+      ],
+      "details": {},
+      "id": "rule_obligation.54047b0b025b",
+      "prover": "machine_checked",
+      "status": "ok",
+      "subject": "Surface15to1TThenInject_SurfaceD5:detects_all_weight_1_and_2_input_errors"
+    },
+    {
+      "category": "rule_obligation",
+      "dependencies": [
+        "Surface15to1TThenInject_SurfaceD5"
+      ],
+      "details": {},
+      "id": "rule_obligation.033355f5ed48",
+      "prover": "machine_checked",
+      "status": "ok",
+      "subject": "Surface15to1TThenInject_SurfaceD5:leading_weight_3_logical_error_count_is_35"
+    }
+  ],
+  "ok": true,
+  "registry": {
+    "case_studies": [
+      "case_study_best",
+      "case_study_complex_best",
+      "case_study_complex_hybrid",
+      "case_study_complex_magic_only",
+      "case_study_complex_random_seed23",
+      "case_study_complex_switch_only",
+      "case_study_hybrid",
+      "case_study_magic_only",
+      "case_study_random_seed17",
+      "case_study_random_seed7",
+      "case_study_switch_only"
+    ],
+    "codes": [
+      {
+        "distance": 5,
+        "gauge_generator_count": 0,
+        "k": 1,
+        "logical_x": {
+          "n": 25,
+          "name": "SurfaceD5_imported_logical_X",
+          "weight": 5,
+          "x_support": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "z_support": []
+        },
+        "logical_z": {
+          "n": 25,
+          "name": "SurfaceD5_imported_logical_Z",
+          "weight": 5,
+          "x_support": [],
+          "z_support": [
+            0,
+            5,
+            10,
+            15,
+            20
+          ]
+        },
+        "n": 25,
+        "name": "SurfaceD5",
+        "native_gates": [
+          "H",
+          "S"
+        ],
+        "stabilizer_count": 0,
+        "supported_topologies": [
+          "grid2d",
+          "long_range"
+        ],
+        "theorem": {
+          "claim": "The MVP treats SurfaceD5 as an imported rotated-surface logical patch with distance-5 resource profiles from the cited zero-level distillation setting.",
+          "locator": "pp. 020356-7--020356-10",
+          "name": "Surface-code distance-5 imported code contract",
+          "source": {
+            "citation": "Itogawa et al., Efficient Magic State Distillation by Zero-Level Distillation, PRX Quantum 6, 020356 (2025)",
+            "key": "ITFGJ4YN",
+            "locator": "pp. 020356-1--020356-2 abstract/introduction; p. 020356-5; pp. 020356-7--020356-10, Fig. 11--16",
+            "note": "Zero-level distillation uses Steane-code verification and teleportation/conversion to surface code; reports p_L approximately 100 p^2, physical depth 25 for rotated-surface teleportation, and success about 70% at p=1e-3 / 95% at p=1e-4.",
+            "url": "https://doi.org/10.1103/thxx-njr6"
+          }
+        },
+        "transversal_gates": []
+      },
+      {
+        "distance": 3,
+        "gauge_generator_count": 0,
+        "k": 1,
+        "logical_x": {
+          "n": 7,
+          "name": "Steane_logical_X_all",
+          "weight": 7,
+          "x_support": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ],
+          "z_support": []
+        },
+        "logical_z": {
+          "n": 7,
+          "name": "Steane_logical_Z_all",
+          "weight": 7,
+          "x_support": [],
+          "z_support": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6
+          ]
+        },
+        "n": 7,
+        "name": "Steane3",
+        "native_gates": [],
+        "stabilizer_count": 6,
+        "supported_topologies": [
+          "grid2d",
+          "long_range"
+        ],
+        "theorem": {
+          "claim": "The triangular 2D color-code/Steane instance supports transversal H, S, and CNOT in the cited code-switching setup.",
+          "locator": "pp. 020345-2--020345-4, Fig. 1--3",
+          "name": "Steane [[7,1,3]] CSS code signature",
+          "source": {
+            "citation": "Butt et al., Fault-Tolerant Code-Switching Protocols for Near-Term Quantum Processors, PRX Quantum 5, 020345 (2024)",
+            "key": "8QS8EFNR",
+            "locator": "pp. 020345-2--020345-4, Fig. 1--3; p. 020345-4, Table I",
+            "note": "2D triangular/Steane code has transversal H,S,CNOT; tetrahedral [[15,1,3]] has transversal T,CNOT; Table I reports switch building-block qubits/CNOT counts.",
+            "url": "https://doi.org/10.1103/PRXQuantum.5.020345"
+          }
+        },
+        "transversal_gates": [
+          "CNOT",
+          "H",
+          "S"
+        ]
+      },
+      {
+        "distance": 3,
+        "gauge_generator_count": 0,
+        "k": 1,
+        "logical_x": {
+          "n": 15,
+          "name": "RM15_logical_X_all",
+          "weight": 15,
+          "x_support": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "z_support": []
+        },
+        "logical_z": {
+          "n": 15,
+          "name": "RM15_logical_Z_all",
+          "weight": 15,
+          "x_support": [],
+          "z_support": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ]
+        },
+        "n": 15,
+        "name": "RM15Triorthogonal",
+        "native_gates": [],
+        "stabilizer_count": 4,
+        "supported_topologies": [
+          "grid2d",
+          "long_range"
+        ],
+        "theorem": {
+          "claim": "The 15-to-1 Reed-Muller magic-state distillation profile suppresses independent input error p to leading order 35 p^3 in the cited constant-time surface-code implementation.",
+          "locator": "pp. 1--2 and p. 7",
+          "name": "15-to-1 Reed-Muller magic distillation outer-code theorem",
+          "source": {
+            "citation": "Wan, Constant-time magic state distillation, arXiv:2410.17992 (2024)",
+            "key": "WV8K4EP7",
+            "locator": "pp. 1--2 for O(1) code cycles and 35p^3/7p^3; p. 7 for 111 d^2 and 47 d^2 qubit-cycle costs",
+            "note": "15-to-1 surface-code MSD has leading-order 35 p^3 suppression, O(1) code cycles, 6 code cycles, and 111 d^2 qubit-cycles excluding physical ancilla/injection cost.",
+            "url": "https://arxiv.org/abs/2410.17992"
+          }
+        },
+        "transversal_gates": [
+          "T"
+        ]
+      }
+    ],
+    "rules": [
+      {
+        "backend_topologies": [
+          "grid2d",
+          "long_range"
+        ],
+        "cert_level": "Certified",
+        "consumed_resources": [],
+        "effect": {
+          "accept": 0.97,
+          "assumptions": [],
+          "certs": [],
+          "cycles": 72,
+          "decoder_latency": 1,
+          "err": 0.03,
+          "factory_count": 0,
+          "fail": 0.03,
+          "measurements": 3,
+          "qubit_rounds": 72,
+          "qubits_peak": 17,
+          "resets": 0,
+          "rules": [],
+          "switch_count": 1,
+          "three_qubit_gates": 0,
+          "two_qubit_gates": 72
+        },
+        "kind": "code_switch",
+        "name": "Switch_Steane3_to_Tetra15",
+        "post_codes": [
+          "Tetra15"
+        ],
+        "pre_codes": [
+          "Steane3"
+        ],
+        "produced_resources": [],
+        "proof_kind": "imported_theorem",
+        "proof_obligations": [
+          "algebraic_gauge_fixing_core",
+          "flag_fault_tolerance_imported_theorem",
+          "resource_table_match"
+        ],
+        "sources": [
+          {
+            "citation": "Butt et al., Fault-Tolerant Code-Switching Protocols for Near-Term Quantum Processors, PRX Quantum 5, 020345 (2024)",
+            "key": "8QS8EFNR",
+            "locator": "pp. 020345-2--020345-4, Fig. 1--3; p. 020345-4, Table I",
+            "note": "2D triangular/Steane code has transversal H,S,CNOT; tetrahedral [[15,1,3]] has transversal T,CNOT; Table I reports switch building-block qubits/CNOT counts.",
+            "url": "https://doi.org/10.1103/PRXQuantum.5.020345"
+          }
+        ]
+      },
+      {
+        "backend_topologies": [
+          "grid2d",
+          "long_range"
+        ],
+        "cert_level": "Certified",
+        "consumed_resources": [
+          "TState"
+        ],
+        "effect": {
+          "accept": 0.985,
+          "assumptions": [],
+          "certs": [],
+          "cycles": 6,
+          "decoder_latency": 1,
+          "err": 3.5e-08,
+          "factory_count": 1,
+          "fail": 0.015,
+          "measurements": 15,
+          "qubit_rounds": 2775,
+          "qubits_peak": 775,
+          "resets": 0,
+          "rules": [],
+          "switch_count": 0,
+          "three_qubit_gates": 0,
+          "two_qubit_gates": 60
+        },
+        "kind": "magic_distillation_injection",
+        "name": "Surface15to1TThenInject_SurfaceD5",
+        "post_codes": [
+          "SurfaceD5"
+        ],
+        "pre_codes": [
+          "SurfaceD5"
+        ],
+        "produced_resources": [
+          "TState"
+        ],
+        "proof_kind": "machine_checked",
+        "proof_obligations": [
+          "triorthogonal_matrix_valid",
+          "detects_all_weight_1_and_2_input_errors",
+          "leading_weight_3_logical_error_count_is_35"
+        ],
+        "sources": [
+          {
+            "citation": "Wan, Constant-time magic state distillation, arXiv:2410.17992 (2024)",
+            "key": "WV8K4EP7",
+            "locator": "pp. 1--2 for O(1) code cycles and 35p^3/7p^3; p. 7 for 111 d^2 and 47 d^2 qubit-cycle costs",
+            "note": "15-to-1 surface-code MSD has leading-order 35 p^3 suppression, O(1) code cycles, 6 code cycles, and 111 d^2 qubit-cycles excluding physical ancilla/injection cost.",
+            "url": "https://arxiv.org/abs/2410.17992"
+          }
+        ]
+      }
+    ]
+  },
+  "sections": {
+    "checker": [
+      {
+        "name": "Checker:case_study_best",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_complex_best",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_complex_hybrid",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_complex_magic_only",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_complex_random_seed23",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_complex_switch_only",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_hybrid",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_magic_only",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_random_seed17",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_random_seed7",
+        "ok": true,
+        "strict_ok": false
+      },
+      {
+        "name": "Checker:case_study_switch_only",
+        "ok": true,
+        "strict_ok": false
+      }
+    ],
+    "code_specs": [
+      {
+        "checked": [
+          "all_paulis_have_expected_length",
+          "stabilizers_commute",
+          "stabilizers_preserve_logicals",
+          "logical_x_and_z_anticommute",
+          "external_code_theorem_recorded"
+        ],
+        "details": {
+          "distance": 5,
+          "gauge_generator_count": 0,
+          "k": 1,
+          "logical_x": {
+            "n": 25,
+            "name": "SurfaceD5_imported_logical_X",
+            "weight": 5,
+            "x_support": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "z_support": []
+          },
+          "logical_z": {
+            "n": 25,
+            "name": "SurfaceD5_imported_logical_Z",
+            "weight": 5,
+            "x_support": [],
+            "z_support": [
+              0,
+              5,
+              10,
+              15,
+              20
+            ]
+          },
+          "n": 25,
+          "name": "SurfaceD5",
+          "native_gates": [
+            "H",
+            "S"
+          ],
+          "stabilizer_count": 0,
+          "supported_topologies": [
+            "grid2d",
+            "long_range"
+          ],
+          "theorem": {
+            "claim": "The MVP treats SurfaceD5 as an imported rotated-surface logical patch with distance-5 resource profiles from the cited zero-level distillation setting.",
+            "locator": "pp. 020356-7--020356-10",
+            "name": "Surface-code distance-5 imported code contract",
+            "source": {
+              "citation": "Itogawa et al., Efficient Magic State Distillation by Zero-Level Distillation, PRX Quantum 6, 020356 (2025)",
+              "key": "ITFGJ4YN",
+              "locator": "pp. 020356-1--020356-2 abstract/introduction; p. 020356-5; pp. 020356-7--020356-10, Fig. 11--16",
+              "note": "Zero-level distillation uses Steane-code verification and teleportation/conversion to surface code; reports p_L approximately 100 p^2, physical depth 25 for rotated-surface teleportation, and success about 70% at p=1e-3 / 95% at p=1e-4.",
+              "url": "https://doi.org/10.1103/thxx-njr6"
+            }
+          },
+          "transversal_gates": []
+        },
+        "failures": [],
+        "name": "CodeSpec:SurfaceD5",
+        "ok": true
+      },
+      {
+        "checked": [
+          "all_paulis_have_expected_length",
+          "stabilizers_commute",
+          "stabilizers_preserve_logicals",
+          "logical_x_and_z_anticommute",
+          "external_code_theorem_recorded"
+        ],
+        "details": {
+          "distance": 3,
+          "gauge_generator_count": 0,
+          "k": 1,
+          "logical_x": {
+            "n": 7,
+            "name": "Steane_logical_X_all",
+            "weight": 7,
+            "x_support": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "z_support": []
+          },
+          "logical_z": {
+            "n": 7,
+            "name": "Steane_logical_Z_all",
+            "weight": 7,
+            "x_support": [],
+            "z_support": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ]
+          },
+          "n": 7,
+          "name": "Steane3",
+          "native_gates": [],
+          "stabilizer_count": 6,
+          "supported_topologies": [
+            "grid2d",
+            "long_range"
+          ],
+          "theorem": {
+            "claim": "The triangular 2D color-code/Steane instance supports transversal H, S, and CNOT in the cited code-switching setup.",
+            "locator": "pp. 020345-2--020345-4, Fig. 1--3",
+            "name": "Steane [[7,1,3]] CSS code signature",
+            "source": {
+              "citation": "Butt et al., Fault-Tolerant Code-Switching Protocols for Near-Term Quantum Processors, PRX Quantum 5, 020345 (2024)",
+              "key": "8QS8EFNR",
+              "locator": "pp. 020345-2--020345-4, Fig. 1--3; p. 020345-4, Table I",
+              "note": "2D triangular/Steane code has transversal H,S,CNOT; tetrahedral [[15,1,3]] has transversal T,CNOT; Table I reports switch building-block qubits/CNOT counts.",
+              "url": "https://doi.org/10.1103/PRXQuantum.5.020345"
+            }
+          },
+          "transversal_gates": [
+            "CNOT",
+            "H",
+            "S"
+          ]
+        },
+        "failures": [],
+        "name": "CodeSpec:Steane3",
+        "ok": true
+      },
+      {
+        "checked": [
+          "all_paulis_have_expected_length",
+          "stabilizers_commute",
+          "stabilizers_preserve_logicals",
+          "logical_x_and_z_anticommute",
+          "external_code_theorem_recorded"
+        ],
+        "details": {
+          "distance": 3,
+          "gauge_generator_count": 0,
+          "k": 1,
+          "logical_x": {
+            "n": 15,
+            "name": "RM15_logical_X_all",
+            "weight": 15,
+            "x_support": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ],
+            "z_support": []
+          },
+          "logical_z": {
+            "n": 15,
+            "name": "RM15_logical_Z_all",
+            "weight": 15,
+            "x_support": [],
+            "z_support": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
+          },
+          "n": 15,
+          "name": "RM15Triorthogonal",
+          "native_gates": [],
+          "stabilizer_count": 4,
+          "supported_topologies": [
+            "grid2d",
+            "long_range"
+          ],
+          "theorem": {
+            "claim": "The 15-to-1 Reed-Muller magic-state distillation profile suppresses independent input error p to leading order 35 p^3 in the cited constant-time surface-code implementation.",
+            "locator": "pp. 1--2 and p. 7",
+            "name": "15-to-1 Reed-Muller magic distillation outer-code theorem",
+            "source": {
+              "citation": "Wan, Constant-time magic state distillation, arXiv:2410.17992 (2024)",
+              "key": "WV8K4EP7",
+              "locator": "pp. 1--2 for O(1) code cycles and 35p^3/7p^3; p. 7 for 111 d^2 and 47 d^2 qubit-cycle costs",
+              "note": "15-to-1 surface-code MSD has leading-order 35 p^3 suppression, O(1) code cycles, 6 code cycles, and 111 d^2 qubit-cycles excluding physical ancilla/injection cost.",
+              "url": "https://arxiv.org/abs/2410.17992"
+            }
+          },
+          "transversal_gates": [
+            "T"
+          ]
+        },
+        "failures": [],
+        "name": "CodeSpec:RM15Triorthogonal",
+        "ok": true
+      }
+    ],
+    "compile_results": [
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_best",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_best.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_complex_best",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_complex_best.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_complex_hybrid",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_complex_hybrid.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_complex_magic_only",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_complex_magic_only.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_complex_random_seed23",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_complex_random_seed23.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_complex_switch_only",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_complex_switch_only.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_hybrid",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_hybrid.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_magic_only",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_magic_only.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_random_seed17",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_random_seed17.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_random_seed7",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_random_seed7.smt2",
+        "solver": "z3"
+      },
+      {
+        "checked": [
+          "all_effect_fields_nonnegative",
+          "direct_gate_steps_have_capability_witnesses",
+          "linear_resources_produced_and_consumed_once",
+          "layout_events_preserve_fixed_backend_and_free_counts",
+          "reported_effect_is_conservative_over_flattened_steps",
+          "err_bound_is_conservative",
+          "accept_lower_bound_is_conservative",
+          "cycles_bound_is_conservative",
+          "factory_count_is_conservative",
+          "switch_count_is_conservative",
+          "two_qubit_count_is_conservative"
+        ],
+        "failures": [],
+        "name": "case_study_switch_only",
+        "ok": true,
+        "smt_file": "/Volumes/macsoftware/codes/quantumcomputing/FTQP/experiments/outputs/smt/case_study_switch_only.smt2",
+        "solver": "z3"
+      }
+    ],
+    "decoders": [
+      {
+        "checked": [
+          "all_single_qubit_x_and_z_errors_have_unique_nonzero_syndromes",
+          "single_qubit_y_errors_decompose_into_unique_x_and_z_syndromes",
+          "no_nontrivial_weight_1_css_error_is_undetected"
+        ],
+        "details": {
+          "corrects_up_to_weight": 1,
+          "distance": 3,
+          "syndrome_table_size": 14,
+          "y_syndromes": [
+            {
+              "qubit": 0,
+              "x_part": [
+                1,
+                0,
+                0
+              ],
+              "z_part": [
+                1,
+                0,
+                0
+              ]
+            },
+            {
+              "qubit": 1,
+              "x_part": [
+                0,
+                1,
+                0
+              ],
+              "z_part": [
+                0,
+                1,
+                0
+              ]
+            },
+            {
+              "qubit": 2,
+              "x_part": [
+                1,
+                1,
+                0
+              ],
+              "z_part": [
+                1,
+                1,
+                0
+              ]
+            },
+            {
+              "qubit": 3,
+              "x_part": [
+                0,
+                0,
+                1
+              ],
+              "z_part": [
+                0,
+                0,
+                1
+              ]
+            },
+            {
+              "qubit": 4,
+              "x_part": [
+                1,
+                0,
+                1
+              ],
+              "z_part": [
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "qubit": 5,
+              "x_part": [
+                0,
+                1,
+                1
+              ],
+              "z_part": [
+                0,
+                1,
+                1
+              ]
+            },
+            {
+              "qubit": 6,
+              "x_part": [
+                1,
+                1,
+                1
+              ],
+              "z_part": [
+                1,
+                1,
+                1
+              ]
+            }
+          ]
+        },
+        "failures": [],
+        "imported": [
+          {
+            "claim": "The Steane/2D color-code distance-3 instance corrects arbitrary single-qubit Pauli errors under a syndrome-table decoder.",
+            "locator": "pp. 020345-2--020345-4",
+            "name": "Steane3 distance-3 decoder contract",
+            "source": {
+              "citation": "Butt et al., Fault-Tolerant Code-Switching Protocols for Near-Term Quantum Processors, PRX Quantum 5, 020345 (2024)",
+              "key": "8QS8EFNR",
+              "locator": "pp. 020345-2--020345-4, Fig. 1--3; p. 020345-4, Table I",
+              "note": "2D triangular/Steane code has transversal H,S,CNOT; tetrahedral [[15,1,3]] has transversal T,CNOT; Table I reports switch building-block qubits/CNOT counts.",
+              "url": "https://doi.org/10.1103/PRXQuantum.5.020345"
+            }
+          }
+        ],
+        "name": "Steane3_SyndromeTableDecoder",
+        "ok": true
+      },
+      {
+        "checked": [
+          "distance_5_contract_records_correction_radius_2",
+          "decoder_latency_bound_recorded"
+        ],
+        "details": {
+          "corrects_up_to_weight": 2,
+          "decoder_latency_cycles": 1,
+          "distance": 5
+        },
+        "failures": [],
+        "imported": [
+          {
+            "claim": "The stack treats the distance-5 surface-code QEC rounds as an imported decoder contract with correction radius t=2 and the rule-library latency bound; exact MWPM implementation details are outside this Python MVP.",
+            "locator": "pp. 020356-7--020356-10",
+            "name": "SurfaceD5 imported MWPM-style decoder contract",
+            "source": {
+              "citation": "Itogawa et al., Efficient Magic State Distillation by Zero-Level Distillation, PRX Quantum 6, 020356 (2025)",
+              "key": "ITFGJ4YN",
+              "locator": "pp. 020356-1--020356-2 abstract/introduction; p. 020356-5; pp. 020356-7--020356-10, Fig. 11--16",
+              "note": "Zero-level distillation uses Steane-code verification and teleportation/conversion to surface code; reports p_L approximately 100 p^2, physical depth 25 for rotated-surface teleportation, and success about 70% at p=1e-3 / 95% at p=1e-4.",
+              "url": "https://doi.org/10.1103/thxx-njr6"
+            }
+          }
+        ],
+        "name": "SurfaceD5_ImportedDecoderContract",
+        "ok": true
+      }
+    ],
+    "geometry": [
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 100,
+          "max_workspace_reserved": 775,
+          "patches": {
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "r": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 100
+        },
+        "failures": [],
+        "name": "Geometry:case_study_best",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 175,
+          "max_workspace_reserved": 775,
+          "patches": {
+            "anc": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "flag": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 20,
+              "y": 0
+            },
+            "q3": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 25,
+              "y": 0
+            },
+            "q4": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 30,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 175
+        },
+        "failures": [],
+        "name": "Geometry:case_study_complex_best",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 175,
+          "max_workspace_reserved": 775,
+          "patches": {
+            "anc": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "flag": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 20,
+              "y": 0
+            },
+            "q3": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 25,
+              "y": 0
+            },
+            "q4": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 30,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 175
+        },
+        "failures": [],
+        "name": "Geometry:case_study_complex_hybrid",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 175,
+          "max_workspace_reserved": 775,
+          "patches": {
+            "anc": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "flag": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 20,
+              "y": 0
+            },
+            "q3": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 25,
+              "y": 0
+            },
+            "q4": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 30,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 175
+        },
+        "failures": [],
+        "name": "Geometry:case_study_complex_magic_only",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 175,
+          "max_workspace_reserved": 775,
+          "patches": {
+            "anc": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "flag": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 20,
+              "y": 0
+            },
+            "q3": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 25,
+              "y": 0
+            },
+            "q4": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 30,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 175
+        },
+        "failures": [],
+        "name": "Geometry:case_study_complex_random_seed23",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 175,
+          "max_workspace_reserved": 240,
+          "patches": {
+            "anc": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "flag": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 20,
+              "y": 0
+            },
+            "q3": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 25,
+              "y": 0
+            },
+            "q4": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 30,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 175
+        },
+        "failures": [],
+        "name": "Geometry:case_study_complex_switch_only",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 100,
+          "max_workspace_reserved": 775,
+          "patches": {
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "r": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 100
+        },
+        "failures": [],
+        "name": "Geometry:case_study_hybrid",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 100,
+          "max_workspace_reserved": 775,
+          "patches": {
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "r": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 100
+        },
+        "failures": [],
+        "name": "Geometry:case_study_magic_only",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 100,
+          "max_workspace_reserved": 775,
+          "patches": {
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "r": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 100
+        },
+        "failures": [],
+        "name": "Geometry:case_study_random_seed17",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 100,
+          "max_workspace_reserved": 775,
+          "patches": {
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "r": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 100
+        },
+        "failures": [],
+        "name": "Geometry:case_study_random_seed7",
+        "ok": true
+      },
+      {
+        "checked": [
+          "final_live_patches_have_nonoverlapping_rectangular_embedding",
+          "rectangular_embedding_area_matches_reported_used_qubits",
+          "all_workspace_reservations_fit_backend_capacity"
+        ],
+        "details": {
+          "backend_grid": {
+            "capacity": 4096,
+            "height": 64,
+            "width": 64
+          },
+          "embedding_area": 100,
+          "max_workspace_reserved": 240,
+          "patches": {
+            "q0": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 0,
+              "y": 0
+            },
+            "q1": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 5,
+              "y": 0
+            },
+            "q2": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 10,
+              "y": 0
+            },
+            "r": {
+              "area": 25,
+              "h": 5,
+              "w": 5,
+              "x": 15,
+              "y": 0
+            }
+          },
+          "reported_used_qubits": 100
+        },
+        "failures": [],
+        "name": "Geometry:case_study_switch_only",
+        "ok": true
+      }
+    ],
+    "lean": {
+      "checked": [
+        "lake_build"
+      ],
+      "failures": [],
+      "name": "LeanCore",
+      "ok": true,
+      "stderr": "",
+      "stdout": "Build completed successfully.\n"
+    },
+    "protocols": [
+      {
+        "checked": [
+          "all_paulis_have_expected_length",
+          "logical_x_and_z_anticommute",
+          "subsystem_stabilizers_commute",
+          "target_stabilizers_commute",
+          "stabilizers_preserve_common_logicals",
+          "gauge_corrections_preserve_logicals",
+          "gauge_corrections_span_target_syndromes",
+          "butt2024_algebraic_gauge_fixing_core_machine_checked",
+          "table_i_switch_qubit_count_recorded",
+          "table_i_steane_to_tetra_cnot_count_recorded",
+          "table_i_tetra_to_steane_cnot_count_recorded"
+        ],
+        "details": {
+          "certificate_boundary": "Algebraic gauge fixing is checked over GF(2). Complete flag-circuit single-fault tolerance is imported from the cited paper and recorded as a theorem dependency.",
+          "machine_checked_part": {
+            "checked": [
+              "all_paulis_have_expected_length",
+              "logical_x_and_z_anticommute",
+              "subsystem_stabilizers_commute",
+              "target_stabilizers_commute",
+              "stabilizers_preserve_common_logicals",
+              "gauge_corrections_preserve_logicals",
+              "gauge_corrections_span_target_syndromes"
+            ],
+            "details": {
+              "correction_syndrome_matrix": [
+                [
+                  1,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  1
+                ]
+              ],
+              "gauge_corrections": [
+                {
+                  "n": 15,
+                  "name": "Gauge_Z_for_red_face_BZ_BG",
+                  "weight": 4,
+                  "x_support": [],
+                  "z_support": [
+                    2,
+                    5,
+                    11,
+                    13
+                  ]
+                },
+                {
+                  "n": 15,
+                  "name": "Gauge_Z_for_green_face_basis",
+                  "weight": 2,
+                  "x_support": [],
+                  "z_support": [
+                    0,
+                    1
+                  ]
+                },
+                {
+                  "n": 15,
+                  "name": "Gauge_Z_for_blue_face_basis",
+                  "weight": 2,
+                  "x_support": [],
+                  "z_support": [
+                    0,
+                    3
+                  ]
+                }
+              ],
+              "logical_x": {
+                "n": 15,
+                "name": "Common_logical_X_Eq16",
+                "weight": 7,
+                "x_support": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ],
+                "z_support": []
+              },
+              "logical_z": {
+                "n": 15,
+                "name": "Common_logical_Z_Eq16",
+                "weight": 7,
+                "x_support": [],
+                "z_support": [
+                  0,
+                  1,
+                  2,
+                  3,
+                  4,
+                  5,
+                  6
+                ]
+              },
+              "source": "Tetra15",
+              "source_ref": "Butt et al. 2024, Sec. IV, Eq. (14)--(16), Fig. 7(a): switching is gauge fixing between variants of the same subsystem code.",
+              "target": "Steane3",
+              "target_stabilizers": [
+                {
+                  "n": 15,
+                  "name": "Steane_X_red_face",
+                  "weight": 4,
+                  "x_support": [
+                    0,
+                    1,
+                    2,
+                    3
+                  ],
+                  "z_support": []
+                },
+                {
+                  "n": 15,
+                  "name": "Steane_X_green_face",
+                  "weight": 4,
+                  "x_support": [
+                    1,
+                    2,
+                    4,
+                    5
+                  ],
+                  "z_support": []
+                },
+                {
+                  "n": 15,
+                  "name": "Steane_X_blue_face",
+                  "weight": 4,
+                  "x_support": [
+                    2,
+                    3,
+                    5,
+                    6
+                  ],
+                  "z_support": []
+                }
+              ]
+            },
+            "failures": [],
+            "name": "Butt2024_Steane_Tetra15_GaugeFixing_Core",
+            "ok": true
+          },
+          "resource_table": {
+            "Steane3_to_Tetra15": {
+              "building_block_qubits": 17,
+              "cnot_count": 72
+            },
+            "Tetra15_to_Steane3": {
+              "building_block_qubits": 17,
+              "cnot_count": 18
+            },
+            "deterministic_gate_logical_failure_reference": 0.03
+          }
+        },
+        "failures": [],
+        "imported": [
+          {
+            "claim": "The cited paper constructs deterministic distance-3 2D/3D color-code switching protocols with flag-qubit fault-tolerant circuits; the MVP imports the complete flag-fault enumeration as a theorem rather than re-enumerating every circuit fault locally.",
+            "locator": "Sec. IV--V, Table I, and flag-qubit switching circuits",
+            "name": "Butt2024 flag-circuit single-fault-tolerance theorem",
+            "source": {
+              "citation": "Butt et al., Fault-Tolerant Code-Switching Protocols for Near-Term Quantum Processors, PRX Quantum 5, 020345 (2024)",
+              "key": "8QS8EFNR",
+              "locator": "pp. 020345-2--020345-4, Fig. 1--3; p. 020345-4, Table I",
+              "note": "2D triangular/Steane code has transversal H,S,CNOT; tetrahedral [[15,1,3]] has transversal T,CNOT; Table I reports switch building-block qubits/CNOT counts.",
+              "url": "https://doi.org/10.1103/PRXQuantum.5.020345"
+            }
+          }
+        ],
+        "name": "Butt2024_Steane_Tetra15_FullSwitchCertificate",
+        "ok": true
+      },
+      {
+        "checked": [
+          "triorthogonal_matrix_has_one_odd_logical_row_and_four_even_check_rows",
+          "all_pair_overlaps_even",
+          "all_triple_overlaps_even",
+          "all_weight_1_and_2_input_z_errors_are_detected",
+          "leading_weight_3_logical_error_count_is_35"
+        ],
+        "details": {
+          "accepted_error_counts": {
+            "1": 0,
+            "2": 0,
+            "3": 35
+          },
+          "accepted_logical_error_counts": {
+            "1": 0,
+            "2": 0,
+            "3": 35
+          },
+          "column_count": 15,
+          "leading_output_error_polynomial": "35 p^3 + O(p^4)",
+          "matrix_rows": [
+            [
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              1,
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          ],
+          "row_count": 5
+        },
+        "failures": [],
+        "imported": [
+          {
+            "claim": "The constant-time surface-code implementation records 35 p^3 leading suppression, six code cycles, and 111 d^2 qubit-cycle profile for the 15-to-1 construction used by the rule library.",
+            "locator": "pp. 1--2 and p. 7",
+            "name": "Wan2024 constant-time 15-to-1 surface-code implementation",
+            "source": {
+              "citation": "Wan, Constant-time magic state distillation, arXiv:2410.17992 (2024)",
+              "key": "WV8K4EP7",
+              "locator": "pp. 1--2 for O(1) code cycles and 35p^3/7p^3; p. 7 for 111 d^2 and 47 d^2 qubit-cycle costs",
+              "note": "15-to-1 surface-code MSD has leading-order 35 p^3 suppression, O(1) code cycles, 6 code cycles, and 111 d^2 qubit-cycles excluding physical ancilla/injection cost.",
+              "url": "https://arxiv.org/abs/2410.17992"
+            }
+          }
+        ],
+        "name": "ReedMuller15To1_MagicDistillation",
+        "ok": true
+      }
+    ],
+    "rule_specs": [
+      {
+        "checked": [
+          "pre_and_post_codes_known",
+          "proof_obligations_recorded",
+          "effect_fields_nonnegative"
+        ],
+        "details": {
+          "backend_topologies": [
+            "grid2d",
+            "long_range"
+          ],
+          "cert_level": "Certified",
+          "consumed_resources": [],
+          "effect": {
+            "accept": 0.97,
+            "assumptions": [],
+            "certs": [],
+            "cycles": 72,
+            "decoder_latency": 1,
+            "err": 0.03,
+            "factory_count": 0,
+            "fail": 0.03,
+            "measurements": 3,
+            "qubit_rounds": 72,
+            "qubits_peak": 17,
+            "resets": 0,
+            "rules": [],
+            "switch_count": 1,
+            "three_qubit_gates": 0,
+            "two_qubit_gates": 72
+          },
+          "kind": "code_switch",
+          "name": "Switch_Steane3_to_Tetra15",
+          "post_codes": [
+            "Tetra15"
+          ],
+          "pre_codes": [
+            "Steane3"
+          ],
+          "produced_resources": [],
+          "proof_kind": "imported_theorem",
+          "proof_obligations": [
+            "algebraic_gauge_fixing_core",
+            "flag_fault_tolerance_imported_theorem",
+            "resource_table_match"
+          ],
+          "sources": [
+            {
+              "citation": "Butt et al., Fault-Tolerant Code-Switching Protocols for Near-Term Quantum Processors, PRX Quantum 5, 020345 (2024)",
+              "key": "8QS8EFNR",
+              "locator": "pp. 020345-2--020345-4, Fig. 1--3; p. 020345-4, Table I",
+              "note": "2D triangular/Steane code has transversal H,S,CNOT; tetrahedral [[15,1,3]] has transversal T,CNOT; Table I reports switch building-block qubits/CNOT counts.",
+              "url": "https://doi.org/10.1103/PRXQuantum.5.020345"
+            }
+          ]
+        },
+        "failures": [],
+        "name": "RuleSpec:Switch_Steane3_to_Tetra15",
+        "ok": true
+      },
+      {
+        "checked": [
+          "pre_and_post_codes_known",
+          "proof_obligations_recorded",
+          "effect_fields_nonnegative"
+        ],
+        "details": {
+          "backend_topologies": [
+            "grid2d",
+            "long_range"
+          ],
+          "cert_level": "Certified",
+          "consumed_resources": [
+            "TState"
+          ],
+          "effect": {
+            "accept": 0.985,
+            "assumptions": [],
+            "certs": [],
+            "cycles": 6,
+            "decoder_latency": 1,
+            "err": 3.5e-08,
+            "factory_count": 1,
+            "fail": 0.015,
+            "measurements": 15,
+            "qubit_rounds": 2775,
+            "qubits_peak": 775,
+            "resets": 0,
+            "rules": [],
+            "switch_count": 0,
+            "three_qubit_gates": 0,
+            "two_qubit_gates": 60
+          },
+          "kind": "magic_distillation_injection",
+          "name": "Surface15to1TThenInject_SurfaceD5",
+          "post_codes": [
+            "SurfaceD5"
+          ],
+          "pre_codes": [
+            "SurfaceD5"
+          ],
+          "produced_resources": [
+            "TState"
+          ],
+          "proof_kind": "machine_checked",
+          "proof_obligations": [
+            "triorthogonal_matrix_valid",
+            "detects_all_weight_1_and_2_input_errors",
+            "leading_weight_3_logical_error_count_is_35"
+          ],
+          "sources": [
+            {
+              "citation": "Wan, Constant-time magic state distillation, arXiv:2410.17992 (2024)",
+              "key": "WV8K4EP7",
+              "locator": "pp. 1--2 for O(1) code cycles and 35p^3/7p^3; p. 7 for 111 d^2 and 47 d^2 qubit-cycle costs",
+              "note": "15-to-1 surface-code MSD has leading-order 35 p^3 suppression, O(1) code cycles, 6 code cycles, and 111 d^2 qubit-cycles excluding physical ancilla/injection cost.",
+              "url": "https://arxiv.org/abs/2410.17992"
+            }
+          ]
+        },
+        "failures": [],
+        "name": "RuleSpec:Surface15to1TThenInject_SurfaceD5",
+        "ok": true
+      }
+    ]
+  },
+  "summary": {
+    "artifacts": 26,
+    "case_studies": 11,
+    "code_specs": 3,
+    "compile_results": 11,
+    "decoders": 2,
+    "geometry": 11,
+    "obligations": 53,
+    "protocols": 2,
+    "rule_specs": 2
+  }
+}

@@ -1,0 +1,30 @@
+\section{Related Work}
+
+\paragraph{Quantum programming languages and substructural types.}
+Quantum programming languages use linear and affine type disciplines to reflect no-cloning and controlled disposal of quantum data.
+Recent POPL work on Qurts uses Rust-like lifetimes to control automatic uncomputation through a substructural discipline~\cite{hirata2025qurts}.
+\system shares the view that quantum programming needs static ownership information, but its ownership discipline applies to encoded code states and fault-tolerant resources rather than to automatic uncomputation.
+In particular, a $\res{TState}$ in \system is treated as a linear physical artifact whose consumption is part of the target acquisition plan.
+
+\paragraph{Resource estimation for quantum circuit descriptions.}
+Type-based resource estimation for quantum circuit description languages uses effects, refinements, and index terms to derive circuit-size bounds~\cite{colledan2025resource}.
+\system also uses effects, but the quantities are specialized to fault-tolerant acquisition: logical error, failure, acceptance, code switches, factories, decoder latency, physical qubits, cycles, and qubit-rounds.
+The effect system is therefore tied to rule certificates and backend side conditions, not only to circuit size.
+This distinction is visible in the case study, where two plans can implement the same logical gate sequence but expose different switch/factory/certificate profiles.
+
+\paragraph{Quantum compiler generation and mapping.}
+Compiler frameworks for qubit mapping and routing identify common state-machine structure across diverse architectures and synthesize compilers from architecture specifications~\cite{molavi2026qmr}.
+\system is complementary.
+It does not attempt to solve low-level mapping and routing optimally; instead, it exposes code capabilities and fault-tolerant acquisition decisions as typed program structure.
+The current geometry checker is a conservative rectangular embedding and workspace-capacity check, not a full nearest-neighbor routing or lattice-surgery scheduler.
+
+\paragraph{Parameterized quantum verification.}
+Automata-based verification can prove relational properties of parameterized quantum circuits across all input sizes~\cite{abdulla2026parameterized}.
+\system targets a different verification layer.
+Rather than verifying arbitrary circuit families against functional specifications, it checks that a compiler-generated fault-tolerant acquisition plan respects code capabilities, linear resources, certificate levels, backend constraints, and conservative effect bounds.
+The two approaches are compatible: parameterized circuit verification can supply facts about circuit families, while \system can record how such facts are used in an acquisition plan.
+
+\paragraph{Fault-tolerant protocols.}
+\system relies on the standard magic-state view of universal fault-tolerant computation~\cite{bravyi2005magic} and recent protocol results for code switching, magic-state distillation, and surface-code implementation profiles~\cite{butt2024switching,heussen2025oneway,itogawa2025zero,wan2024constant}.
+The calculus does not replace those protocol proofs.
+It provides a language-level composition layer that records which protocol facts are locally checked, which are imported, and which are still assumptions in the prototype rule library.

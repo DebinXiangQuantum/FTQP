@@ -1,0 +1,69 @@
+\section{Overview}
+
+This section follows one program through the \system pipeline.
+The program is small enough to inspect, but it contains the three phenomena that make fault-tolerant acquisition interesting: a direct gate, a missing non-Clifford gate that can be supplied by a resource, and a dense region where switching once may be better than acquiring each gate independently.
+In pseudocode, the source program prepares four \code{SurfaceD5} logical qubits, runs an error-correction round, applies a direct $\gate{H}$, enters a region with two $\gate{CNOT}$ gates and two $\gate{T}$ gates, later applies a $\gate{CCZ}$, and finishes with measurement-controlled $\gate{S}$ correction.
+The source says what logical computation is intended; it does not say how to realize the missing operations.
+
+Figure~\ref{fig:pipeline} shows the compilation path.
+The planner takes the logical program and a backend context, consults a rule library, and emits an acquisition plan with a sidecar.
+The sidecar is not an afterthought: it is the evidence object that tells the checker which rule justified each step, which resource was produced or consumed, how effects were composed, which layout event was reported, and which certificate level was used.
+The formal toolchain then checks the sidecar through independent components: Python validates step-level legality, Z3 checks arithmetic obligations, GF(2) checkers discharge algebraic protocol facts, decoder checkers validate local decoder contracts where possible, geometry checkers verify conservative rectangular embeddings, and Lean proves small core properties about the calculus.
+
+\begin{figure}[t]
+\centering
+\fbox{\begin{minipage}{0.93\linewidth}
+\centering
+\[
+\begin{array}{c}
+\text{logical program over \code{SurfaceD5} qubits} \\
+\Downarrow \\
+\text{planner chooses direct, resource, switch, or hybrid acquisition} \\
+\Downarrow \\
+\text{typed acquisition plan + effect/layout/certificate sidecar} \\
+\Downarrow \\
+\text{checker + SMT + GF(2) certificates + decoder + geometry + Lean}
+\end{array}
+\]
+\end{minipage}}
+\caption{The \system pipeline. The running example starts as a logical surface-code program; the planner makes missing capabilities explicit; the checker audits the evidence that justifies each acquisition step.}
+\label{fig:pipeline}
+\end{figure}
+
+The direct gate illustrates what the checker should allow without ceremony.
+When the source applies $\gate{H}$ to a \code{SurfaceD5} qubit, the rule library contains a direct surface-code capability for $\gate{H}$.
+The target plan therefore contains a single direct step, and the type of the qubit remains $Q[\code{SurfaceD5},5,\State]$.
+No resource is produced, no switch is required, and the effect contribution is just the rule's local cost.
+This mundane case matters because it fixes the baseline: a direct step is legal only when the current code index supports it.
+
+The $\gate{T}$ gate illustrates why resources must be linear.
+Because \code{SurfaceD5} does not expose direct $\gate{T}$, one acquisition candidate is:
+\[
+  \mathsf{produce}\ r:\res{TState} ;\quad
+  \mathsf{consume}\ r\ \mathsf{for}\ \gate{T}\ q.
+\]
+The notation is intentionally close to the implementation sidecar.
+The first step creates a fresh physical artifact; the second step spends that artifact to implement the logical gate.
+If a later target step tries to consume the same identifier again, the resource context no longer contains it, and the checker rejects the plan.
+This is the simplest example where a formula in the paper corresponds directly to a bug that the prototype catches.
+
+The dense region illustrates why the compiler should not always acquire gates one by one.
+For a block such as
+\[
+  \gate{CNOT}(q_0,q_1);\ \gate{T}(q_1);\ \gate{CNOT}(q_1,q_2);\ \gate{T}(q_2),
+\]
+the hybrid strategy may switch the involved qubits into \code{Tetra15}, execute the region using transversal capabilities, and switch them back:
+\[
+  \mathsf{switch}\ \vec q:\code{SurfaceD5}\to\code{Tetra15};\quad
+  \mathsf{transv}\ \text{region};\quad
+  \mathsf{switch}\ \vec q:\code{Tetra15}\to\code{SurfaceD5}.
+\]
+The checker sees this not as a magical optimization, but as a sequence of ordinary typed steps.
+During the middle of the plan the qubits have code index \code{Tetra15}; after the final switch their code index returns to \code{SurfaceD5}.
+The case study in Section~\ref{sec:case-study} shows how this choice changes cycle counts, factory counts, switch counts, and assumption warnings.
+
+The same example also explains the role of certificate levels.
+The locally checked part of a switch certificate may verify an algebraic gauge-fixing core over GF(2), while the complete flag-circuit single-fault-tolerance theorem remains imported from the cited protocol paper.
+Other rules in the current prototype are weaker: they are \Assumed{} bridge rules used to connect otherwise paper-backed components in a compact compiler experiment.
+An exploratory run may keep these rules so that the planner can compare acquisition strategies, but a strict run rejects them.
+Thus the overview example already contains the paper's main claim: \system does not make every physical protocol true; it makes the proof boundary visible when protocols are composed.

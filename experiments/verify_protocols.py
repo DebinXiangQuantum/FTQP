@@ -15,6 +15,7 @@ from cipr.stabilizer import (  # noqa: E402
     verify_gauge_switch,
     verify_magic_distillation_skeleton,
 )
+from cipr.protocols import verify_protocol_suite  # noqa: E402
 
 
 OUT_DIR = Path(__file__).resolve().parent / "outputs"
@@ -76,6 +77,7 @@ def main() -> None:
     results = [
         verify_gauge_switch(steane_tetra_gauge_switch_spec()).to_json(),
         verify_magic_distillation_skeleton(toy_magic_distillation_spec()).to_json(),
+        *[result.to_json() for result in verify_protocol_suite()],
     ]
     out_path = OUT_DIR / "protocol_certificates.json"
     out_path.write_text(json.dumps(results, indent=2, sort_keys=True), encoding="utf-8")

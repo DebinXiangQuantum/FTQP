@@ -1,0 +1,22 @@
+\section{Draft Claim--Evidence Map}
+
+\begin{table}[h]
+\centering
+\caption{Major claims in the current draft and their supporting artifacts.}
+\begin{tabular}{p{0.32\linewidth}p{0.45\linewidth}p{0.15\linewidth}}
+\toprule
+Claim & Evidence & Status \\
+\midrule
+Code-indexed acquisition plans expose legality of native gates, switches, resources, and backends.
+& \texttt{cipr/ir.py}, \texttt{cipr/planner.py}, \texttt{cipr/checker.py}, \texttt{cipr/rules.py}. & Supported \\
+Linear resources prevent duplicate consumption.
+& Python negative test; Lean theorems \texttt{no\_double\_consume\_same\_resource} and \texttt{badDoubleConsumePlan\_not\_linear\_after\_single\_resource}. & Supported \\
+Strict policy rejects assumed prototype rules.
+& Python checker \texttt{allow\_assumed=False}; Lean theorem \texttt{strict\_rejects\_assumed\_surface\_to\_tetra}. & Supported \\
+Protocol-level physical proofs are explicit imported dependencies.
+& \texttt{experiments/outputs/full\_stack\_report.json}; protocol certificate records for Butt 2024 and Wan 2024. & Supported \\
+End-to-end compiler stack is reproducible.
+& Repository commands in \texttt{README.md}; full-stack report; current local evidence from prior run. & Supported, requires rerun before submission \\
+\bottomrule
+\end{tabular}
+\end{table}
